@@ -13,10 +13,11 @@
   transition-timing-function: ease-in-out;
 }
 html {
-  background-image: url('./morning.jpeg');
   box-sizing: border-box;
   scroll-behavior: smooth;
   background-attachment: fixed;
-  background-size: cover cover;
-  background-repeat: no-repeat no-repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('/morning.jpeg');
+  background-position: center center;
 }

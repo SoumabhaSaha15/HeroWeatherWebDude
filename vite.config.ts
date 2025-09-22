@@ -8,9 +8,26 @@ export default defineConfig({
     registerType: 'prompt',
     devOptions: { enabled: false },
     workbox: {
-      globPatterns: [], // 🛑 No precaching
-      runtimeCaching: [], // 🛑 No runtime caching at all
+      globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg}'],
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/api.openweathermap\.org\/.*$/,
+          handler: 'NetworkOnly'
+        },
+        {
+          urlPattern: /\.(jpg|jpeg|png|gif|svg|ico)$/,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'images',
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
+            }
+          }
+        }
+      ],
     },
+    injectRegister: 'auto',
     manifest: {
       name: 'Hero Weather',
       short_name: 'weather-app',
