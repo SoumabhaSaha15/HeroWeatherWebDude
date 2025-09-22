@@ -58,6 +58,7 @@ export default function Weather() {
             <p className="text-lg font-medium">{weather.main.feels_like}°C</p>
             <p className="text-sm text-gray-800">Feels Like</p>
           </div>
+        </div>
           {/* rain data */}
           {weather.rain && (
             <React.Fragment>
@@ -90,7 +91,6 @@ export default function Weather() {
               </div>
             </React.Fragment>
           )}
-        </div>
       </CardBody>
     </Card>
   );

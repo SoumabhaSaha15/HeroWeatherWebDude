@@ -93,10 +93,6 @@ const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeathe
             <p className="text-lg font-medium">{Math.round(forecast.main.feels_like)}°C</p>
             <p className="text-sm text-gray-800">Feels Like</p>
           </div>
-
-          {/* <Divider /> */}
-          {/* Rain data */}
-
         </div>
         {forecast.rain && (
           <React.Fragment>
