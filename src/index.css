@@ -18,6 +18,6 @@ html {
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url('/morning.jpeg');
+  background-image: linear-gradient(to bottom right, #ffdee9, #b5fffc);
   background-position: center center;
 }

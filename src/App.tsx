@@ -36,11 +36,16 @@ const App: React.FC = () => {
     }
   });
 
-  React.useEffect(()=>{setDefaultLocation();},[]);
+  React.useEffect(() => { setDefaultLocation(); }, []);
   React.useEffect(() => {
     if (dataConsumer.weather !== null) {
       const hour = new Date((dataConsumer.weather.dt) * 1000).getHours();
-      document.documentElement.style.backgroundImage = (hour >= 18 || hour <= 5) ? `url('./evening.jpeg')` : `url('./morning.jpeg')`;
+      const root = document.documentElement;
+      if (hour >= 5 && hour < 16) {
+        root.style.backgroundImage = "linear-gradient(to top right, #FFFAE3, #FFD6A5, #FFB5A7)"; // Morning
+      } else {
+        root.style.backgroundImage = "linear-gradient(to top left, #2C3E50, #FD746C, #FF9068)"; // Evening
+      }
     }
   }, [dataConsumer.weather]);
 
