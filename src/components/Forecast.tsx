@@ -1,23 +1,28 @@
 import React from "react";
+import { ForecastSkeleton } from "./Skeletons";
 import { useDataStore } from "../context/DataStoreContext";
 import { Card, CardBody, CardFooter, CardHeader, Divider, Tab, Tabs } from "@heroui/react";
 import { DateGrouper, type ForecastWeather } from "../utility/DateGrouper";
 const Forecast: React.FC = () => {
   const dataConsumer = useDataStore();
-  if (dataConsumer.forecast == null) return (<></>);
+  if (dataConsumer.forecast == null) return (<ForecastSkeleton />);
   return (
     <>
-      <Card className="bg-gray-800/30 backdrop-blur-md rounded-3xl">
+      <Card className="bg-gray-800/30 backdrop-blur-md rounded-3xl h-full min-h-full">
         <CardHeader>
-          <h2 className="text-2xl font-bold">Forecast for upcoming 5/6 days</h2>
+          <h2 className="text-2xl font-bold">Forecast for future 5/6 days</h2>
         </CardHeader>
         <Divider />
-        <CardBody className="max-h-[calc(100vh-10rem)] h-[calc(100vh-10rem)] overflow-hidden">
-          <Tabs className="w-full bg-gray-800/10 hover:bg-gray-800/30 backdrop-blur-md rounded-3xl justify-around my-1" variant="underlined" >
+        <CardBody className="max-h-[calc(100vh-8rem)] h-[calc(100vh-8rem)] overflow-hidden">
+          <Tabs className="w-full bg-gray-600 backdrop-blur-md rounded-3xl justify-around my-1" variant="light"
+            classNames={{
+              tabContent: "p-2 text-lg font-bold text-black",
+              cursor: "bg-gray-400 rounded-3xl",
+            }}>
             {DateGrouper(dataConsumer.forecast.list).map((weathers, day) => {
               return (
-                <Tab key={day} title={weathers.dailyDate.slice(5, 10)} className="p-2 text-lg font-bold">
-                  <div className="overflow-y-scroll overflow-x-hidden max-h-[calc(100vh-15rem)]">
+                <Tab key={day} title={weathers.dailyDate.slice(5, 10)} >
+                  <div className="overflow-y-auto overflow-x-hidden max-h-[calc(100vh-13.5rem)] px-1">
                     {weathers.data.map((weather, idx) => {
                       return <React.Fragment key={idx}> <WeatherForecastCard {...weather} /> </React.Fragment>
                     })}
@@ -41,7 +46,7 @@ export default Forecast;
 
 const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeather) => {
   return (
-    <Card className="w-full max-w-full shadow-lg rounded-3xl bg-gray-900/10 hover:bg-gray-900/30 backdrop-blur-md my-1">
+    <Card className="w-full max-w-full shadow-lg rounded-3xl bg-gray-600 hover:bg-gray-400 backdrop-blur-md my-1">
       <CardHeader className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">
           {forecast.dt_txt.split(' ')[1].slice(0, 5)}
@@ -59,7 +64,7 @@ const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeathe
                     <img
                       src={`https://openweathermap.org/img/wn/${w.icon}@2x.png`}
                       loading="lazy"
-                      className="w-10 h-10 bg-gray-500/50 rounded-lg"
+                      className="w-20 h-20 bg-gray-500 rounded-lg"
                       alt={w.description}
                     />
                     <div>

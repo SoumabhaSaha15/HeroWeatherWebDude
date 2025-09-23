@@ -40,22 +40,19 @@ const App: React.FC = () => {
   React.useEffect(() => {
     if (dataConsumer.weather !== null) {
       const hour = new Date((dataConsumer.weather.dt) * 1000).getHours();
-      const root = document.documentElement;
-      if (hour >= 5 && hour < 16) {
-        root.style.backgroundImage = "linear-gradient(to top right, #FFFAE3, #FFD6A5, #FFB5A7)"; // Morning
-      } else {
-        root.style.backgroundImage = "linear-gradient(to top left, #2C3E50, #FD746C, #FF9068)"; // Evening
-      }
+      document.documentElement.style.backgroundImage = (hour >= 5 && hour < 16) ? "var(--morning)" : "var(--evening)";
     }
   }, [dataConsumer.weather]);
 
   return (
     <div className="h-screen max-h-screen w-full grid grid-cols-1 md:grid-cols-2 md:gap-2">
 
-      <div className="p-2 h-screen max-h-screen overflow-y-auto relative" id="Weather">
+      <div className="p-2 h-screen max-h-screen overflow-y-auto" id="Weather">
         <Search setDefaultLocation={setDefaultLocation} />
-        <Weather />
-        <WeatherDetails />
+        <div className="h-[calc(100%-6rem)] max-h-[calc(100%-6rem)] overflow-y-auto m-1">
+          <Weather />
+          <WeatherDetails />
+        </div>
       </div>
 
       <div id="Forecast" className="relative p-2 h-screen max-h-screen overflow-y-auto">

@@ -1,14 +1,14 @@
 import React from "react";
-import { FaMapMarkerAlt, FaWind, FaEye, FaWater, FaClock, FaSun, } from "react-icons/fa";
-import { FaGauge } from "react-icons/fa6";
-import { Card, CardHeader, CardBody, Divider, Button } from "@heroui/react";
+import { WeatherDetailsSkeleton } from "./Skeletons";
 import { useDataStore } from "../context/DataStoreContext";
+import { Card, CardHeader, CardBody, Divider, Button } from "@heroui/react";
+import { FaMapPin, FaWind, FaEye, FaWater, FaClock, FaSun, FaCloud, FaGauge } from "react-icons/fa6";
 
 const WeatherDetails: React.FC = () => {
   const { weather } = useDataStore();
-  if (weather === null) return (<></>);
+  if (weather === null) return (<WeatherDetailsSkeleton />);
   return (<>
-    <Card className="w-full shadow-lg rounded-3xl bg-gray-900/30 hover:bg-gray-900/50 backdrop-blur-md">
+    <Card className="w-full shadow-lg rounded-3xl bg-gray-600 hover:bg-gray-400 backdrop-blur-md">
       <CardHeader className="flex justify-between items-center">
         <h2 className="text-xl font-medium">More on {weather.name} weather</h2>
       </CardHeader>
@@ -17,7 +17,7 @@ const WeatherDetails: React.FC = () => {
         <div className="grid grid-cols-1 gap-4 text-2xl">
           <div className="flex items-center gap-2">
             <Button radius="full" isIconOnly disabled size="md" className="bg-sky-200">
-              <FaMapMarkerAlt className="text-sky-500" size={"20px"} />
+              <FaMapPin className="text-sky-500" size={"20px"} />
             </Button>
             <span>Lat: {weather.coord.lat}</span>
             <Divider orientation="vertical" className="mx-2 h-8" />
@@ -51,7 +51,14 @@ const WeatherDetails: React.FC = () => {
             <Button radius="full" isIconOnly disabled size="md" className="bg-purple-200">
               <FaGauge className="text-purple-500" size={"20px"} />
             </Button>
-            <span>Pressure: {weather.main.pressure} hPa</span>
+            <span>Pressure: {weather.main.pressure}mbar</span>
+          </div>
+          <Divider />
+          <div className="flex items-center gap-2">
+            <Button radius="full" isIconOnly disabled size="md" className="bg-pink-200">
+              <FaCloud className="text-pink-500" size={"20px"} />
+            </Button>
+            <span>Clouds: {weather.clouds.all}%</span>
           </div>
           <Divider />
           <div className="flex items-center gap-2">
