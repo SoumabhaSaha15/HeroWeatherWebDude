@@ -22,7 +22,7 @@ const Search: React.FC<Props> = ({ setDefaultLocation }) => {
         label="Location"
         type="text"
         classNames={{
-          inputWrapper: "bg-gray-600 rounded-2xl",
+          inputWrapper: "bg-white rounded-2xl",
           input: "text-black font-black",
           label: "text-black font-medium",
         }}
@@ -49,15 +49,15 @@ const Search: React.FC<Props> = ({ setDefaultLocation }) => {
         }}
       />
       <Tooltip 
-        className="bg-gray-400"
+        className="bg-white"
         content="Reset to your current/default location"
         children={
           <Button
-            className="h-16 w-16 bg-gray-600 backdrop-blur-md rounded-3xl"
+            className="h-16 w-16 bg-white backdrop-blur-md rounded-3xl"
             isIconOnly={true}
             onPress={setDefaultLocation}
           >
-            <ImLocation size={"32px"} color="white" />
+            <ImLocation size={"32px"} color="red" />
           </Button>
         } />
 

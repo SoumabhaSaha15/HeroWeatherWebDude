@@ -1,14 +1,14 @@
 import React from "react";
 import { WeatherDetailsSkeleton } from "./Skeletons";
 import { useDataStore } from "../context/DataStoreContext";
-import { Card, CardHeader, CardBody, Divider, Button } from "@heroui/react";
+import { Card, CardHeader, CardBody, Divider, Button,CardFooter } from "@heroui/react";
 import { FaMapPin, FaWind, FaEye, FaWater, FaClock, FaSun, FaCloud, FaGauge } from "react-icons/fa6";
 
 const WeatherDetails: React.FC = () => {
   const { weather } = useDataStore();
   if (weather === null) return (<WeatherDetailsSkeleton />);
   return (<>
-    <Card className="w-full shadow-lg rounded-3xl bg-gray-600 hover:bg-gray-400 backdrop-blur-md">
+    <Card className="w-full shadow-lg rounded-3xl bg-white hover:bg-gray-400 backdrop-blur-md">
       <CardHeader className="flex justify-between items-center">
         <h2 className="text-xl font-medium">More on {weather.name} weather</h2>
       </CardHeader>
@@ -78,6 +78,10 @@ const WeatherDetails: React.FC = () => {
           </div>
         </div>
       </CardBody>
+      <Divider />
+              <CardFooter className="items-center justify-center">
+                <h2 className="text-sm font-bold mt-2">powered by  Open Weather</h2>
+              </CardFooter>
     </Card>
   </>)
 }

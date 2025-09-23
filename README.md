@@ -1,4 +1,7 @@
 # React weather app
+## preview
+![Image](./images/image.png) 
+
 ## libraries used
 
 | Icon | Technology | Category |
@@ -9,4 +12,3 @@
 | <img src="https://www.heroui.com/favicon.ico" width=32 /> | [Heroui/Nextui](https://www.heroui.com) | **Component library** |
 | <img src="https://axios-http.com/assets/favicon.ico" width=32 /> | [Axios](https://axios-http.com/) | **API request** |
 
-![Image](./images/image.png) 

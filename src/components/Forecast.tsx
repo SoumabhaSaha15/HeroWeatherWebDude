@@ -1,7 +1,7 @@
 import React from "react";
 import { ForecastSkeleton } from "./Skeletons";
 import { useDataStore } from "../context/DataStoreContext";
-import { Card, CardBody, CardFooter, CardHeader, Divider, Tab, Tabs } from "@heroui/react";
+import { Card, CardBody, CardHeader, Divider, Tab, Tabs } from "@heroui/react";
 import { DateGrouper, type ForecastWeather } from "../utility/DateGrouper";
 const Forecast: React.FC = () => {
   const dataConsumer = useDataStore();
@@ -13,16 +13,16 @@ const Forecast: React.FC = () => {
           <h2 className="text-2xl font-bold">Forecast for future 5/6 days</h2>
         </CardHeader>
         <Divider />
-        <CardBody className="max-h-[calc(100vh-8rem)] h-[calc(100vh-8rem)] overflow-hidden">
-          <Tabs className="w-full bg-gray-600 backdrop-blur-md rounded-3xl justify-around my-1" variant="light"
+        <CardBody className="max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] overflow-hidden">
+          <Tabs className="w-full bg-white backdrop-blur-md rounded-lg justify-around my-1" variant="light"
             classNames={{
               tabContent: "p-2 text-lg font-bold text-black",
-              cursor: "bg-gray-400 rounded-3xl",
+              cursor: "bg-gray-400 rounded-lg",
             }}>
             {DateGrouper(dataConsumer.forecast.list).map((weathers, day) => {
               return (
                 <Tab key={day} title={weathers.dailyDate.slice(5, 10)} >
-                  <div className="overflow-y-auto overflow-x-hidden max-h-[calc(100vh-13.5rem)] px-1">
+                  <div className="overflow-y-auto overflow-x-hidden max-h-[calc(100vh-10rem)] h-[calc(100vh-10rem)] px-1">
                     {weathers.data.map((weather, idx) => {
                       return <React.Fragment key={idx}> <WeatherForecastCard {...weather} /> </React.Fragment>
                     })}
@@ -32,10 +32,6 @@ const Forecast: React.FC = () => {
             })}
           </Tabs>
         </CardBody>
-        <Divider />
-        <CardFooter className="items-center justify-center">
-          <h2 className="text-sm font-bold mt-2">powered by  Open Weather</h2>
-        </CardFooter>
       </Card>
     </>
   );
@@ -46,7 +42,7 @@ export default Forecast;
 
 const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeather) => {
   return (
-    <Card className="w-full max-w-full shadow-lg rounded-3xl bg-gray-600 hover:bg-gray-400 backdrop-blur-md my-1">
+    <Card className="w-full max-w-full shadow-lg rounded-3xl bg-white hover:bg-gray-400 backdrop-blur-md my-1">
       <CardHeader className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">
           {forecast.dt_txt.split(' ')[1].slice(0, 5)}
@@ -64,7 +60,7 @@ const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeathe
                     <img
                       src={`https://openweathermap.org/img/wn/${w.icon}@2x.png`}
                       loading="lazy"
-                      className="w-20 h-20 bg-gray-500 rounded-lg"
+                      className="w-20 h-20 bg-gray-500/50 rounded-lg"
                       alt={w.description}
                     />
                     <div>

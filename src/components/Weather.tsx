@@ -6,7 +6,7 @@ export default function Weather() {
   const { weather } = useDataStore();
   if (weather === null) return (<WeatherSkeleton />);
   return (
-    <Card className="w-full max-w-full shadow-lg rounded-3xl bg-gray-600 hover:bg-gray-400 my-1">
+    <Card className="w-full max-w-full shadow-lg rounded-3xl bg-white hover:bg-gray-400 my-1">
       <CardHeader className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">{weather.name + ", " + weather.sys.country}</h2>
         <Divider orientation="vertical" className="h-12" />
@@ -25,7 +25,7 @@ export default function Weather() {
                     <img
                       src={w.icon}
                       loading="lazy"
-                      className="w-20 h-20 bg-gray-500 rounded-lg"
+                      className="w-20 h-20 bg-gray-500/50 rounded-lg"
                     />
                     <div>
                       <p className="font-medium">{w.main}</p>

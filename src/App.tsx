@@ -49,7 +49,7 @@ const App: React.FC = () => {
 
       <div className="p-2 h-screen max-h-screen overflow-y-auto" id="Weather">
         <Search setDefaultLocation={setDefaultLocation} />
-        <div className="h-[calc(100%-6rem)] max-h-[calc(100%-6rem)] overflow-y-auto m-1">
+        <div className="h-[calc(100%-6rem)] max-h-[calc(100%-6rem)] overflow-y-auto my-1 px-1">
           <Weather />
           <WeatherDetails />
         </div>
