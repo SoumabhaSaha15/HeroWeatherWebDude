@@ -1,6 +1,6 @@
 # React weather app
 ## preview
-![Image](./images/image.png) 
+![Image](./images/pr.png) 
 
 ## libraries used
 
