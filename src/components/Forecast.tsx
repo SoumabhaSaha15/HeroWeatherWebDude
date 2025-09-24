@@ -5,47 +5,45 @@ import { Card, CardBody, CardHeader, Divider, Tab, Tabs } from "@heroui/react";
 import { DateGrouper, type ForecastWeather } from "../utility/DateGrouper";
 const Forecast: React.FC = () => {
   const dataConsumer = useDataStore();
-  if (dataConsumer.forecast == null) return (<ForecastSkeleton />);
+  if (dataConsumer.forecast == null) return <ForecastSkeleton />;
   return (
     <>
-      <Card className="bg-gray-800/30 backdrop-blur-md rounded-3xl h-full min-h-full">
-        <CardHeader>
-          <h2 className="text-2xl font-bold">Forecast for future 5/6 days</h2>
-        </CardHeader>
-        <Divider />
-        <CardBody className="max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] overflow-hidden">
-          <Tabs className="w-full bg-white backdrop-blur-md rounded-lg justify-around my-1" variant="light"
-            classNames={{
-              tabContent: "p-2 text-lg font-bold text-black",
-              cursor: "bg-gray-400 rounded-lg",
-            }}>
-            {DateGrouper(dataConsumer.forecast.list).map((weathers, day) => {
-              return (
-                <Tab key={day} title={weathers.dailyDate.slice(5, 10)} >
-                  <div className="overflow-y-auto overflow-x-hidden max-h-[calc(100vh-10rem)] h-[calc(100vh-10rem)] px-1">
-                    {weathers.data.map((weather, idx) => {
-                      return <React.Fragment key={idx}> <WeatherForecastCard {...weather} /> </React.Fragment>
-                    })}
-                  </div>
-                </Tab>
-              );
-            })}
-          </Tabs>
-        </CardBody>
-      </Card>
+      <Tabs
+        className="w-full bg-white backdrop-blur-md rounded-2xl justify-around my-0.5"
+        variant="light"
+        classNames={{
+          tabContent: "p-1 text-lg font-bold text-black",
+          cursor: "bg-gray-400 rounded-xl",
+        }}
+      >
+        {DateGrouper(dataConsumer.forecast.list).map((weathers, day) => {
+          return (
+            <Tab key={day} title={weathers.dailyDate}>
+              <div
+                className="overflow-y-auto overflow-x-hidden max-h-[calc(100vh-5.4rem)] h-[calc(100vh-5.4rem)] px-1"
+                data-aos="fade-right"
+              >
+                {weathers.data.map((weather, idx) => (
+                  <WeatherForecastCard {...weather} key={idx} />
+                ))}
+              </div>
+            </Tab>
+          );
+        })}
+      </Tabs>
     </>
   );
-}
+};
 export default Forecast;
 
-
-
-const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeather) => {
+const WeatherForecastCard: React.FC<ForecastWeather> = (
+  forecast: ForecastWeather
+) => {
   return (
-    <Card className="w-full max-w-full shadow-lg rounded-3xl bg-white hover:bg-gray-400 backdrop-blur-md my-1">
+    <Card className="w-full max-w-full rounded-2xl bg-white hover:bg-gray-400 hover:scale-95 backdrop-blur-md my-1">
       <CardHeader className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">
-          {forecast.dt_txt.split(' ')[1].slice(0, 5)}
+          {forecast.dt_txt.split(" ")[1].slice(0, 5)}
         </h2>
       </CardHeader>
       <Divider />
@@ -70,7 +68,9 @@ const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeathe
                   </div>
                 </div>
               </div>
-              {idx < forecast.weather.length - 1 && <Divider orientation="vertical" className="mx-2 h-16" />}
+              {idx < forecast.weather.length - 1 && (
+                <Divider orientation="vertical" className="mx-2 h-16" />
+              )}
             </React.Fragment>
           ))}
         </div>
@@ -79,19 +79,27 @@ const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeathe
         {/* Temperature grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
           <div className="flex flex-col items-center">
-            <p className="text-2xl font-semibold">{Math.round(forecast.main.temp)}°C</p>
+            <p className="text-2xl font-semibold">
+              {Math.round(forecast.main.temp)}°C
+            </p>
             <p className="text-sm text-gray-800">Current</p>
           </div>
           <div className="flex flex-col items-center">
-            <p className="text-lg font-medium">{Math.round(forecast.main.temp_max)}°C</p>
+            <p className="text-lg font-medium">
+              {Math.round(forecast.main.temp_max)}°C
+            </p>
             <p className="text-sm text-gray-800">Max</p>
           </div>
           <div className="flex flex-col items-center">
-            <p className="text-lg font-medium">{Math.round(forecast.main.temp_min)}°C</p>
+            <p className="text-lg font-medium">
+              {Math.round(forecast.main.temp_min)}°C
+            </p>
             <p className="text-sm text-gray-800">Min</p>
           </div>
           <div className="flex flex-col items-center">
-            <p className="text-lg font-medium">{Math.round(forecast.main.feels_like)}°C</p>
+            <p className="text-lg font-medium">
+              {Math.round(forecast.main.feels_like)}°C
+            </p>
             <p className="text-sm text-gray-800">Feels Like</p>
           </div>
         </div>
@@ -101,13 +109,17 @@ const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeathe
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
               {forecast.rain["1h"] && (
                 <div className="flex flex-col items-center">
-                  <p className="text-2xl font-semibold">Rain: {forecast.rain["1h"]} mm</p>
+                  <p className="text-2xl font-semibold">
+                    Rain: {forecast.rain["1h"]} mm
+                  </p>
                   <p className="text-sm text-gray-800">in hour</p>
                 </div>
               )}
               {forecast.rain["3h"] && (
                 <div className="flex flex-col items-center">
-                  <p className="text-lg font-medium">Rain: {forecast.rain["3h"]} mm</p>
+                  <p className="text-lg font-medium">
+                    Rain: {forecast.rain["3h"]} mm
+                  </p>
                   <p className="text-sm text-gray-800">in 3 hours</p>
                 </div>
               )}
@@ -122,13 +134,17 @@ const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeathe
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
               {forecast.snow["1h"] && (
                 <div className="flex flex-col items-center">
-                  <p className="text-2xl font-semibold">Snow fall: {forecast.snow["1h"]} mm</p>
+                  <p className="text-2xl font-semibold">
+                    Snow fall: {forecast.snow["1h"]} mm
+                  </p>
                   <p className="text-sm text-gray-800">past hour</p>
                 </div>
               )}
               {forecast.snow["3h"] && (
                 <div className="flex flex-col items-center">
-                  <p className="text-lg font-medium">Snow fall: {forecast.snow["3h"]} mm</p>
+                  <p className="text-lg font-medium">
+                    Snow fall: {forecast.snow["3h"]} mm
+                  </p>
                   <p className="text-sm text-gray-800">in past 3 hours</p>
                 </div>
               )}
@@ -138,4 +154,4 @@ const WeatherForecastCard: React.FC<ForecastWeather> = (forecast: ForecastWeathe
       </CardBody>
     </Card>
   );
-}
+};

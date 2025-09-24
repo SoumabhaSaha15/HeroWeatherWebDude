@@ -4,13 +4,17 @@ import { WeatherSkeleton } from "./Skeletons";
 import { Card, CardHeader, CardBody, Divider } from "@heroui/react";
 export default function Weather() {
   const { weather } = useDataStore();
-  if (weather === null) return (<WeatherSkeleton />);
+  if (weather === null) return <WeatherSkeleton />;
   return (
-    <Card className="w-full max-w-full shadow-lg rounded-3xl bg-white hover:bg-gray-400 my-1">
+    <Card className="w-full max-w-full rounded-2xl bg-white hover:bg-gray-400 hover:scale-95 my-1">
       <CardHeader className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">{weather.name + ", " + weather.sys.country}</h2>
-        <Divider orientation="vertical" className="h-12" />
-        <p className="text-sm text-gray-800">{new Date((weather.dt) * 1000).toLocaleString('en-IN')}</p>
+        <h2 className="text-2xl font-bold">
+          {weather.name + ", " + weather.sys.country}
+        </h2>
+        <Divider orientation="vertical" className="h-12 mx-1" />
+        <p className="text-sm text-gray-800">
+          {new Date(weather.dt * 1000).toLocaleString("en-IN")}
+        </p>
       </CardHeader>
       <Divider />
       <CardBody>
@@ -35,7 +39,9 @@ export default function Weather() {
                 </div>
                 {/* Divider (except after last item) */}
               </div>
-              {idx < weather.weather.length - 1 && <Divider orientation="vertical" className="mx-2 h-16" />}
+              {idx < weather.weather.length - 1 && (
+                <Divider orientation="vertical" className="mx-2 h-16" />
+              )}
             </React.Fragment>
           ))}
         </div>
@@ -60,38 +66,54 @@ export default function Weather() {
             <p className="text-sm text-gray-800">Feels Like</p>
           </div>
         </div>
-          {/* rain data */}
-          {weather.rain && (
-            <React.Fragment>
-              <Divider />
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-                {weather.rain["1h"] && (<div className="flex flex-col items-center">
-                  <p className="text-2xl font-semibold">Rain: {weather.rain?.["1h"]} mm</p>
+        {/* rain data */}
+        {weather.rain && (
+          <React.Fragment>
+            <Divider />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+              {weather.rain["1h"] && (
+                <div className="flex flex-col items-center">
+                  <p className="text-2xl font-semibold">
+                    Rain: {weather.rain?.["1h"]} mm
+                  </p>
                   <p className="text-sm text-gray-800">past hour</p>
-                </div>)}
-                {weather.rain["3h"] && (<div className="flex flex-col items-center">
-                  <p className="text-lg font-medium">Rain: {weather.rain["3h"]} mm</p>
+                </div>
+              )}
+              {weather.rain["3h"] && (
+                <div className="flex flex-col items-center">
+                  <p className="text-lg font-medium">
+                    Rain: {weather.rain["3h"]} mm
+                  </p>
                   <p className="text-sm text-gray-800">in past 3 hours</p>
-                </div>)}
-              </div>
-            </React.Fragment>
-          )}
-          {/*snow fall data */}
-          {weather.snow && (
-            <React.Fragment>
-              <Divider />
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-                {weather.snow["1h"] && (<div className="flex flex-col items-center">
-                  <p className="text-2xl font-semibold">Snow fall: {weather.snow?.["1h"]} mm</p>
+                </div>
+              )}
+            </div>
+          </React.Fragment>
+        )}
+        {/*snow fall data */}
+        {weather.snow && (
+          <React.Fragment>
+            <Divider />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+              {weather.snow["1h"] && (
+                <div className="flex flex-col items-center">
+                  <p className="text-2xl font-semibold">
+                    Snow fall: {weather.snow?.["1h"]} mm
+                  </p>
                   <p className="text-sm text-gray-800">past hour</p>
-                </div>)}
-                {weather.snow["3h"] && (<div className="flex flex-col items-center">
-                  <p className="text-lg font-medium">Snow fall: {weather.snow["3h"]} mm</p>
+                </div>
+              )}
+              {weather.snow["3h"] && (
+                <div className="flex flex-col items-center">
+                  <p className="text-lg font-medium">
+                    Snow fall: {weather.snow["3h"]} mm
+                  </p>
                   <p className="text-sm text-gray-800">in past 3 hours</p>
-                </div>)}
-              </div>
-            </React.Fragment>
-          )}
+                </div>
+              )}
+            </div>
+          </React.Fragment>
+        )}
       </CardBody>
     </Card>
   );

@@ -55,9 +55,9 @@ export const WeatherSkeleton = () => (
 );
 
 export const ForecastSkeleton = () => (
-  <Card className="bg-gray-800/30 backdrop-blur-md rounded-3xl h-full min-h-full animate-pulse">
+  <Card className="bg-white/30 backdrop-blur-md rounded-3xl h-full min-h-full animate-pulse">
     <CardHeader>
-      <div className="h-8 w-64 bg-gray-400/50 rounded-lg"></div>
+      <div className="h-8 w-64 bg-gray-400 rounded-lg"></div>
     </CardHeader>
     <Divider />
     <CardBody className="max-h-[calc(100vh-8rem)] h-[calc(100vh-8rem)] overflow-hidden">

@@ -1,4 +1,7 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
 import React from "react";
+import { prettifyError, z } from "zod";
 import { addToast } from "@heroui/react";
 import Search from "./components/Search";
 import Weather from "./components/Weather";
@@ -13,54 +16,90 @@ import { coordQuerySchema, placeQuerySchema } from "./validators/query";
 
 const App: React.FC = () => {
   const dataConsumer = useDataStore();
-  const setDefaultLocation = () => GetLocation(async ({ coords: { longitude, latitude } }) => {
-    try {
-      const paramsString = (new URLSearchParams(coordQuerySchema.parse({ lon: longitude, lat: latitude }))).toString();
-      const weatherResponse = await AxiosBase.get(import.meta.env.VITE_OW_WEATHER + `?${paramsString}`);
-      const forecastResponse = await AxiosBase.get(import.meta.env.VITE_OW_FORECAST + `?${paramsString}`);
-      dataConsumer.setWeather(weatherResponseSchema.parse(weatherResponse.data));
-      dataConsumer.setForecast(forecastResponseSchema.parse(forecastResponse.data));
-    } catch (error) {
-      console.error(error);
-    }
-  }, async (e) => {
-    addToast({ title: e.message, color: "warning" });
-    try {
-      const paramsString = (new URLSearchParams(placeQuerySchema.parse({ q: "Kolkata" }))).toString();
-      const weatherResponse = await AxiosBase.get(import.meta.env.VITE_OW_WEATHER + `?${paramsString}`);
-      const forecastResponse = await AxiosBase.get(import.meta.env.VITE_OW_FORECAST + `?${paramsString}`);
-      dataConsumer.setWeather(weatherResponseSchema.parse(weatherResponse.data));
-      dataConsumer.setForecast(forecastResponseSchema.parse(forecastResponse.data));
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const setDefaultLocation = () =>
+    GetLocation(
+      async ({ coords: { longitude, latitude } }) => {
+        try {
+          const paramsString = new URLSearchParams(
+            coordQuerySchema.parse({ lon: longitude, lat: latitude })
+          ).toString();
+          const weatherResponse = await AxiosBase.get(
+            import.meta.env.VITE_OW_WEATHER + `?${paramsString}`
+          );
+          const forecastResponse = await AxiosBase.get(
+            import.meta.env.VITE_OW_FORECAST + `?${paramsString}`
+          );
+          dataConsumer.setWeather(
+            weatherResponseSchema.parse(weatherResponse.data)
+          );
+          dataConsumer.setForecast(
+            forecastResponseSchema.parse(forecastResponse.data)
+          );
+        } catch (error) {
+          console.error(
+            error instanceof z.ZodError ? prettifyError(error) : error
+          );
+        }
+      },
+      async (e) => {
+        addToast({ title: e.message, color: "warning" });
+        try {
+          const paramsString = new URLSearchParams(
+            placeQuerySchema.parse({ q: "Kolkata" })
+          ).toString();
+          const weatherResponse = await AxiosBase.get(
+            import.meta.env.VITE_OW_WEATHER + `?${paramsString}`
+          );
+          const forecastResponse = await AxiosBase.get(
+            import.meta.env.VITE_OW_FORECAST + `?${paramsString}`
+          );
+          dataConsumer.setWeather(
+            weatherResponseSchema.parse(weatherResponse.data)
+          );
+          dataConsumer.setForecast(
+            forecastResponseSchema.parse(forecastResponse.data)
+          );
+        } catch (error) {
+          console.error(
+            error instanceof z.ZodError ? prettifyError(error) : error
+          );
+        }
+      }
+    );
 
-  React.useEffect(() => { setDefaultLocation(); }, []);
+  React.useEffect(() => {
+    AOS.init({ duration: 800 });
+    setDefaultLocation();
+  }, []);
   React.useEffect(() => {
     if (dataConsumer.weather !== null) {
-      const hour = new Date((dataConsumer.weather.dt) * 1000).getHours();
-      document.documentElement.style.backgroundImage = (hour >= 5 && hour < 16) ? "var(--morning)" : "var(--evening)";
+      const hour = new Date(dataConsumer.weather.dt * 1000).getHours();
+      document.documentElement.style.backgroundImage =
+        hour >= 5 && hour < 16 ? "var(--morning)" : "var(--evening)";
     }
   }, [dataConsumer.weather]);
 
   return (
     <div className="h-screen max-h-screen w-full grid grid-cols-1 md:grid-cols-2 md:gap-2">
-
       <div className="p-2 h-screen max-h-screen overflow-y-auto" id="Weather">
         <Search setDefaultLocation={setDefaultLocation} />
-        <div className="h-[calc(100%-6rem)] max-h-[calc(100%-6rem)] overflow-y-auto my-1 px-1">
+        <div
+          className="h-[calc(100%-5.5rem)] max-h-[calc(100%-5.5rem)] overflow-y-auto my-1  p-1"
+          data-aos="fade-left"
+        >
           <Weather />
           <WeatherDetails />
         </div>
       </div>
 
-      <div id="Forecast" className="relative p-2 h-screen max-h-screen overflow-y-auto">
+      <div
+        id="Forecast"
+        className="relative p-2 h-screen max-h-screen overflow-y-auto"
+      >
         <Forecast />
       </div>
-
     </div>
   );
-}
+};
 
 export default App;

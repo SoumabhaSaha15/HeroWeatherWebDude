@@ -8,14 +8,16 @@
   font-optical-sizing: auto;
   font-family: "Roboto Slab", serif;
   transition-property: color, background-color, border-color, box-shadow,
-    opacity, scale;
+    opacity, scale, transform;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
 }
+
 :root {
   --morning: linear-gradient(to bottom, #2bc0e4, #eaecc6);
   --evening: linear-gradient(to top, #c6ffdd, #fbd786, #f7797d);
 }
+
 html {
   box-sizing: border-box;
   scroll-behavior: smooth;

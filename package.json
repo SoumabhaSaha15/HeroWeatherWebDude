@@ -13,6 +13,7 @@
   "dependencies": {
     "@heroui/react": "^2.8.4",
     "@tailwindcss/vite": "^4.1.13",
+    "aos": "^2.3.4",
     "axios": "^1.12.2",
     "framer-motion": "^12.23.15",
     "react": "^19.1.1",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
+    "@types/aos": "^3.0.7",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "@vite-pwa/assets-generator": "^1.0.1",
