@@ -3,13 +3,15 @@ import { prettifyError, z } from "zod";
 import AxiosBase from "./../utility/AxiosBase";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { placeQuerySchema } from "../validators/query";
-import { useDataStore } from "./../context/data/DataStoreContext";
+import { useToast } from "../context/toast/ToastContext";
 import { weatherResponseSchema } from "../validators/weather";
 import { forecastResponseSchema } from "../validators/forecast";
+import { useDataStore } from "./../context/data/DataStoreContext";
 
 type Props = { setDefaultLocation: () => void };
 
 const Search: React.FC<Props> = ({ setDefaultLocation }) => {
+  const toast = useToast();
   const dataConsumer = useDataStore();
   const [location, setLocation] = React.useState<string>("");
   const EnterLocation = async (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -36,9 +38,7 @@ const Search: React.FC<Props> = ({ setDefaultLocation }) => {
         console.error(
           error instanceof z.ZodError ? prettifyError(error) : error
         );
-
-        alert(`${location} not found.`);
-
+        toast.open(`${location} not found.`,true,2000,{toastVariant:"alert-error",toastPosition:["toast-end","toast-bottom"]});
         setDefaultLocation();
         setLocation(
           dataConsumer.weather ? dataConsumer.weather.name : "Kolkata"

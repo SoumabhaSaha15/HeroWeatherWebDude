@@ -6,6 +6,7 @@ import AxiosBase from "./utility/AxiosBase";
 import Forecast from "./components/Forecast";
 import GetLocation from "./utility/GetLocationAccess";
 import { useTheme } from "./context/theme/ThemeContext";
+import { useToast } from "./context/toast/ToastContext";
 import WeatherDetails from "./components/WeatherDetails";
 import { useDataStore } from "./context/data/DataStoreContext";
 import { weatherResponseSchema } from "./validators/weather";
@@ -15,6 +16,7 @@ import { coordQuerySchema, placeQuerySchema } from "./validators/query";
 const App: React.FC = () => {
   const { applyTheme } = useTheme();
   const dataConsumer = useDataStore();
+  const toast = useToast();
   const setDefaultLocation = () =>
     GetLocation(
       async ({ coords: { longitude, latitude } }) => {
@@ -41,9 +43,7 @@ const App: React.FC = () => {
         }
       },
       async (e) => {
-        // HeroUI addToast removed. 
-        // You can use a library like react-hot-toast or simple alert(e.message)
-        console.warn(e.message);
+        toast.open(e.message,true,2000,{toastVariant:"alert-error",toastPosition:["toast-end","toast-bottom"]});
         try {
           const paramsString = new URLSearchParams(
             placeQuerySchema.parse({ q: "Kolkata" })
