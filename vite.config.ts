@@ -65,7 +65,7 @@ export default defineConfig(({ mode }) => {
     ],
     server: {
       proxy: {
-        "/ow_api":{
+        "/api":{
           target: targetUrl,
           changeOrigin: true,
           rewrite: path => path.replace(/^\/ow_api/, '')
