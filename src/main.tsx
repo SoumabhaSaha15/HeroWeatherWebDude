@@ -1,15 +1,21 @@
 import './index.css';
 import App from './App';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client'
-import { HeroUIProvider } from '@heroui/react';
-import { ToastProvider } from '@heroui/toast';
-import DataStoreProvider from './context/DataStoreProvider';
-
+import { ErrorBoundary } from 'react-error-boundary';
+import ThemeProvider from './context/theme/ThemeProvider';
+import ToastProvider from './context/toast/ToastProvider';
+import DataStoreProvider from './context/data/DataStoreProvider';
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <HeroUIProvider>
-    <ToastProvider />
-    <DataStoreProvider>
-      <App />
-    </DataStoreProvider>
-  </HeroUIProvider>,
+  <StrictMode>
+    <ErrorBoundary FallbackComponent={({ error }) => <div>Something went wrong. {(error as Error).message}</div>}>
+      <DataStoreProvider>
+        <ToastProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </ToastProvider>
+      </DataStoreProvider>
+    </ErrorBoundary>
+  </StrictMode>,
 )

@@ -1,5 +1,5 @@
 import axios from "axios";
 export default axios.create({
-  baseURL: import.meta.env.VITE_OW_URL,
+  baseURL: "/ow_api",
   validateStatus: (status) => !(status >= 500)
 });

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { createContext, useContext, type Context } from "react";
-import { weatherResponseSchema } from '../validators/weather';
-import { forecastResponseSchema } from '../validators/forecast';
+import { weatherResponseSchema } from '../../validators/weather';
+import { forecastResponseSchema } from '../../validators/forecast';
 export type WeatherType = z.infer<typeof weatherResponseSchema>;
 export type ForecastType = z.infer<typeof forecastResponseSchema>;
 type DataStoreContextProps = {
