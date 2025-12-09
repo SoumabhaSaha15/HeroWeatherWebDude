@@ -68,7 +68,7 @@ export default defineConfig(({ mode }) => {
         "/api":{
           target: targetUrl,
           changeOrigin: true,
-          rewrite: path => path.replace(/^\/ow_api/, '')
+          rewrite: path => path.replace(/^\/api/, '')
         },
         '/icon': 'https://openweathermap.org'
       },
