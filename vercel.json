@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/api/:path*",
+      "source": "api/:path*",
       "destination": "https://api.openweathermap.org/:path*"
     }
   ]
