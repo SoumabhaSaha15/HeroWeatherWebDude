@@ -60,3 +60,5 @@ export const forecastResponseSchema = z.object({
     sunset: z.number(),
   }),
 }).strict();
+
+export type ForecastResponse = z.infer<typeof forecastResponseSchema>;
