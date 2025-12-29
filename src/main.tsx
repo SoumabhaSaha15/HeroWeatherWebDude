@@ -2,15 +2,12 @@ import './index.css';
 import NewApp from './NewApp';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client'
-import { ErrorBoundary } from 'react-error-boundary';
-import ThemeProvider from './context/theme/ThemeProvider';
-import ToastProvider from './context/toast/ToastProvider';
-import ModalProvider from './context/Modal/ModalProvider';
-import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
-// import DataStoreProvider from './context/data/DataStoreProvider';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import DaisyProvider from './context/DaisyProvider';
 import { QueryClient } from '@tanstack/react-query';
-import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister'
+import { ErrorBoundary } from 'react-error-boundary';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 
 const persister = createAsyncStoragePersister({ storage: window.localStorage });
 
@@ -28,14 +25,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
         <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
         {/* <DataStoreProvider> */}
-        <ToastProvider>
-          <ThemeProvider>
-            <ModalProvider>
-              <NewApp />
-            </ModalProvider>
-          </ThemeProvider>
-        </ToastProvider>
         {/* </DataStoreProvider> */}
+        <DaisyProvider>
+          <NewApp />
+        </DaisyProvider>
       </PersistQueryClientProvider>
     </ErrorBoundary>
   </StrictMode>,

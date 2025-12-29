@@ -3,7 +3,6 @@ import base from "../utility/AxiosBase";
 import { type AxiosResponse } from "axios";
 import { placeQuerySchema, coordQuerySchema } from "./../validators/query";
 import { type ForecastResponse, forecastResponseSchema } from "./../validators/forecast";
-// import { useQuery } from "@tanstack/react-query";
 /**
  * @name fetchWeatherByPlaceName takes placeName as input and fetches weather data from OpenWeather API
  * @throws {ZodError | AxiosError}
