@@ -1,8 +1,9 @@
-
 import base from "../utility/AxiosBase";
 import { type AxiosResponse } from "axios";
-import { placeQuerySchema, coordQuerySchema } from "./../validators/query";
+import { useQuery } from '@tanstack/react-query';
+import { type GeolocationType } from "../context/geo-location/GeolocationContext";
 import { type WeatherResponse, weatherResponseSchema } from "./../validators/weather";
+import { placeQuerySchema, coordQuerySchema, coordSchema } from "./../validators/query";
 /**
  * @name fetchWeatherByPlaceName takes placeName as input and fetches weather data from OpenWeather API
  * @throws {ZodError | AxiosError}
@@ -17,7 +18,30 @@ export const fetchWeatherByPlaceName = async (placeName: string): Promise<Weathe
  * @throws {ZodError | AxiosError}
  * @returns {Promise<WeatherResponse>}
  */
-export const fetchWeatherByCoordinates = async (coord: { lat: number, lon: number }): Promise<WeatherResponse> => {
+export const fetchWeatherByCoordinates = async (coord: { lat: number; lon: number }): Promise<WeatherResponse> => {
   const response: AxiosResponse<unknown> = await base.get<unknown>(import.meta.env.VITE_OW_WEATHER, { params: coordQuerySchema.parse(coord) });
   return weatherResponseSchema.parse(response.data);
+};
+
+
+export const useWeatherByCity = (city: string) => {
+  return useQuery({
+    queryKey: ['weather', 'city', city.toLowerCase()],
+    queryFn: () => fetchWeatherByPlaceName(city),
+    enabled: !!city,             // Don't fetch if city is empty
+    staleTime: 1000 * 60 * 10,   // Data is fresh for 10 minutes
+    gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours (offline support)
+    retry: 1,                    // Retry once if API fails
+  });
+};
+
+export const useWeatherByCoords = (coords: Exclude<GeolocationType, null>) => {
+  return useQuery({
+    queryKey: ['weather', 'coords', coords.lon, coords.lat],
+    queryFn: () => fetchWeatherByCoordinates(coords),
+    enabled: coordSchema.safeParse(coords).success,             // Don't fetch if city is empty
+    staleTime: 1000 * 60 * 10,   // Data is fresh for 10 minutes
+    gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours (offline support)
+    retry: 1,                    // Retry once if API fails
+  });
 };

@@ -22,3 +22,4 @@ export const fetchForecastByCoordinates = async (coord: { lat: number, lon: numb
   return forecastResponseSchema.parse(response.data);
 };
 
+

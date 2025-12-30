@@ -6,6 +6,7 @@ import DaisyProvider from './context/DaisyProvider';
 import { QueryClient } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import GeolocationProvider from './context/geo-location/GeoLocationProvider';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 
@@ -27,7 +28,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         {/* <DataStoreProvider> */}
         {/* </DataStoreProvider> */}
         <DaisyProvider>
-          <NewApp />
+          <GeolocationProvider>
+            <NewApp />
+          </GeolocationProvider>
         </DaisyProvider>
       </PersistQueryClientProvider>
     </ErrorBoundary>

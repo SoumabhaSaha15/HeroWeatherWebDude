@@ -1,16 +1,41 @@
-import { IoMdClose } from "react-icons/io";
-import { FaSearch } from "react-icons/fa";
-import { type FC } from "react";
-import { useModal } from "./context/Modal/ModalContext";
+import { z } from "zod";
+import { useState, type FC } from "react";
+import { placeSchema } from "./validators/query";
 import useRipple from "use-ripple-hook";
-const App: FC = () => {
+import { IoMdClose } from "react-icons/io";
+import { useModal } from "./context/modal/ModalContext";
+import { useWeatherByCity, useWeatherByCoords } from "./hooks/weatherQuery";
+import { FaSearch, FaSearchLocation } from "react-icons/fa";
+import useGeolocation, { type GeolocationType } from "./context/geo-location/GeolocationContext";
+
+const WrapperCoords: FC<Exclude<GeolocationType, null>> = (coords) => {
+  const { isLoading, data, error } = useWeatherByCoords(coords);
+  return (
+    <>
+      {isLoading ? (<>loading</>) : (!error) ? (JSON.stringify(data)) : (error.message)}
+    </>
+  )
+}
+
+const WrapperCity: FC<z.infer<typeof placeSchema>> = ({ q }) => {
+  const { isLoading, data, error } = useWeatherByCity(q);
+  return (
+    <>
+      {isLoading ? (<>loading</>) : (!error) ? (JSON.stringify(data)) : (error.message)}
+    </>
+  )
+}
+
+const NewApp: FC = () => {
   const [ripple, event] = useRipple();
   const { openModal, modalRef, closeModal } = useModal();
+  const { geolocation } = useGeolocation();
+  const [city, setCity] = useState<string>("Kolkata");
+
   return (
     <>
       <div className="min-h-dvh bg-transparent overflow-y-auto">
-        {/* app here */}
-
+        {geolocation ? (<WrapperCoords {...geolocation} />) : <WrapperCity q={city} />}
       </div>
       <div className="fab">
         <button
@@ -22,7 +47,6 @@ const App: FC = () => {
           <FaSearch className="text-xl" />
         </button>
       </div>
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
       <dialog ref={modalRef} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg flex items-center gap-2 w-full justify-between px-2">
@@ -38,16 +62,18 @@ const App: FC = () => {
           </h3>
 
           <div className="py-4">
-            <div>
-              <label className="floating-label" htmlFor="NameInput">
-                <span
-                  children="Search Place"
-                  className="text-sm ml-2"
-                />
+            <div className="flex justify-center">
+              <label
+                className="input rounded-full w-[calc(100%-8px)] px-2 focus-within:outline-none! focus-within:ring-0 focus-within:ring-accent"
+                htmlFor="NameInput"
+              >
+                <FaSearchLocation className="text-lg" />
                 <input
-                  type="text"
-                  className="validator input input-bordered w-full focus:outline-none focus:ring-0 focus:ring-accent rounded-full"
+                  type="search"
                   id="NameInput"
+                  onKeyDown={({ currentTarget, key }) => {
+                    if (key === "Enter") setCity(currentTarget.value || '');
+                  }}
                   placeholder="Search Place"
                   required
                 />
@@ -60,4 +86,5 @@ const App: FC = () => {
   )
 }
 
-export default App
+export default NewApp
+
