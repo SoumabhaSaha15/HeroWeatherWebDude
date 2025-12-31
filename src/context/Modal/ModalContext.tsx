@@ -12,11 +12,8 @@ export type ModalProviderProps = {
 
 export const ModalContext = createContext<ModalContextType>({
   modalRef: { current: null },
-  openModal: () => {},
-  closeModal: () => {},
+  openModal: () => { },
+  closeModal: () => { },
 });
-export const useModal = (): ModalContextType => {
-  const context = use(ModalContext);
-  return context;
-};
+export const useModal = (): ModalContextType => use(ModalContext);
 export default ModalContext;

@@ -1,47 +1,37 @@
-import { z } from "zod";
-import { useState, type FC } from "react";
-import { placeSchema } from "./validators/query";
 import useRipple from "use-ripple-hook";
 import { IoMdClose } from "react-icons/io";
+import { useState, type FC, type JSX } from "react";
 import { useModal } from "./context/modal/ModalContext";
-import { useWeatherByCity, useWeatherByCoords } from "./hooks/weatherQuery";
+import WeatherCity from "./new-components/weather/city";
 import { FaSearch, FaSearchLocation } from "react-icons/fa";
-import useGeolocation, { type GeolocationType } from "./context/geo-location/GeolocationContext";
-
-const WrapperCoords: FC<Exclude<GeolocationType, null>> = (coords) => {
-  const { isLoading, data, error } = useWeatherByCoords(coords);
-  return (
-    <>
-      {isLoading ? (<>loading</>) : (!error) ? (JSON.stringify(data)) : (error.message)}
-    </>
-  )
-}
-
-const WrapperCity: FC<z.infer<typeof placeSchema>> = ({ q }) => {
-  const { isLoading, data, error } = useWeatherByCity(q);
-  return (
-    <>
-      {isLoading ? (<>loading</>) : (!error) ? (JSON.stringify(data)) : (error.message)}
-    </>
-  )
-}
+import WeatherCoords from "./new-components/weather/Coords";
+import useGeolocation from "./context/geo-location/GeolocationContext";
 
 const NewApp: FC = () => {
-  const [ripple, event] = useRipple();
+  const [rippleClose, eventClose] = useRipple<HTMLButtonElement>();
+  const [rippleFloat, eventFloat] = useRipple<HTMLButtonElement>({ color: "var(--color-primary-content)" });
   const { openModal, modalRef, closeModal } = useModal();
   const { geolocation } = useGeolocation();
-  const [city, setCity] = useState<string>("Kolkata");
+  const [city, setCity] = useState<string | null>(null);
+
+  const renderContent = (): JSX.Element => {
+    if (city === null && geolocation === null)
+      return (<WeatherCity q={'kolkata'} />);
+    else if (city === null && geolocation !== null)
+      return (<WeatherCoords {...geolocation} />);
+    else return (<WeatherCity q={city as string} />)
+  }
 
   return (
     <>
       <div className="min-h-dvh bg-transparent overflow-y-auto">
-        {geolocation ? (<WrapperCoords {...geolocation} />) : <WrapperCity q={city} />}
+        {renderContent()}
       </div>
       <div className="fab">
         <button
-          className="btn btn-lg btn-circle btn-accent"
-          ref={ripple}
-          onPointerDown={event}
+          className="btn btn-lg btn-circle btn-primary focus:outline-none"
+          ref={rippleFloat}
+          onPointerDown={eventFloat}
           onClick={() => openModal()}
         >
           <FaSearch className="text-xl" />
@@ -53,15 +43,15 @@ const NewApp: FC = () => {
             Search Wheather
             <button
               className="btn btn-md btn-circle btn-error"
-              ref={ripple}
-              onPointerDown={event}
+              ref={rippleClose}
+              onPointerDown={eventClose}
               onClick={() => closeModal()}
             >
               <IoMdClose className="text-2xl font-black" />
             </button>
           </h3>
 
-          <div className="py-4">
+          <div className="py-4" >
             <div className="flex justify-center">
               <label
                 className="input rounded-full w-[calc(100%-8px)] px-2 focus-within:outline-none! focus-within:ring-0 focus-within:ring-accent"
@@ -72,7 +62,10 @@ const NewApp: FC = () => {
                   type="search"
                   id="NameInput"
                   onKeyDown={({ currentTarget, key }) => {
-                    if (key === "Enter") setCity(currentTarget.value || '');
+                    if (key === "Enter") {
+                      setCity(currentTarget.value || '');
+                      closeModal();
+                    }
                   }}
                   placeholder="Search Place"
                   required
