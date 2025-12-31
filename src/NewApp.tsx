@@ -1,11 +1,14 @@
 import useRipple from "use-ripple-hook";
 import { IoMdClose } from "react-icons/io";
+import { WiDayStormShowers, WiTime3 } from "react-icons/wi";
 import { useState, type FC, type JSX } from "react";
 import { useModal } from "./context/modal/ModalContext";
-import WeatherCity from "./new-components/weather/city";
+import WeatherCity from "./new-components/weather/City";
 import { FaSearch, FaSearchLocation } from "react-icons/fa";
+import ForecastCoords from "./new-components/forecast/Coords";
+import ForecastCity from "./new-components/forecast/City";
 import WeatherCoords from "./new-components/weather/Coords";
-import useGeolocation from "./context/geo-location/GeolocationContext";
+import useGeolocation from "./context/geolocation/GeolocationContext";
 
 const NewApp: FC = () => {
   const [rippleClose, eventClose] = useRipple<HTMLButtonElement>();
@@ -16,16 +19,63 @@ const NewApp: FC = () => {
 
   const renderContent = (): JSX.Element => {
     if (city === null && geolocation === null)
-      return (<WeatherCity q={'kolkata'} />);
+      return (
+        <>
+          <WeatherCity q={"kolkata"} />
+          <ForecastCity q={"kolkata"} />
+        </>
+      );
     else if (city === null && geolocation !== null)
-      return (<WeatherCoords {...geolocation} />);
-    else return (<WeatherCity q={city as string} />)
+      return (
+        <>
+          <WeatherCoords {...geolocation} />
+          <ForecastCoords {...geolocation} />
+        </>
+      );
+    else return (
+      <>
+        <WeatherCity q={city as string} />
+        <ForecastCity q={city as string} />
+      </>
+    );
   }
 
   return (
     <>
       <div className="min-h-dvh bg-transparent overflow-y-auto">
         {renderContent()}
+
+
+        {/*dock*/}
+
+        <div className="dock dock-md">
+          <button id="WeatherButton"
+            onClick={({ currentTarget }) => {
+              currentTarget.classList.add('dock-active');
+              document.getElementById('ForecastButton')?.classList.remove('dock-active');
+              document.getElementById("Weather")?.classList.remove('hidden');
+              document.getElementById("Forecast")?.classList.add('hidden');
+            }}
+          >
+            <WiDayStormShowers />
+            <span className="dock-label">Weather</span>
+          </button>
+
+          <button
+            id="ForecastButton"
+            onClick={({ currentTarget }) => {
+              currentTarget.classList.add('dock-active');
+              document.getElementById('WeatherButton')?.classList.remove('dock-active');
+              document.getElementById("Weather")?.classList.add('hidden');
+              document.getElementById("Forecast")?.classList.remove('hidden');
+            }}
+          >
+            <WiTime3 />
+            <span className="dock-label">Forecast</span>
+          </button>
+        </div>
+
+
       </div>
       <div className="fab">
         <button

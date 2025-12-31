@@ -21,7 +21,7 @@ import {
 
 const Weather: FC<WeatherResponse> = (weather) => {
   return (
-    <div className="card bg-linear-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 text-base-content h-dvh rounded-none">
+    <div className="card bg-linear-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 text-base-content h-dvh rounded-none" id="Weather">
       <div className="card-body">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
           <div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
 
           {weather.wind.gust && (
             <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
-              <div className="flex justify-center mb-2 hover:scale-110 hover:scale-110">
+              <div className="flex justify-center mb-2 hover:scale-110">
                 <FaWind className="w-6 h-6 text-accent-content" />
               </div>
               <p className="text-sm text-base-content font-semibold mb-1">Wind Gust</p>
@@ -172,7 +172,9 @@ const Weather: FC<WeatherResponse> = (weather) => {
               <WiSunrise className="w-8 h-8 text-accent-content" />
             </div>
             <p className="text-sm text-base-content font-semibold mb-1">Sunrise</p>
-            <p className="text-2xl font-bold text-base-content">{(new Date(weather.sys.sunrise).toLocaleTimeString("en-IN", {}))}</p>
+            <p className="text-2xl font-bold text-base-content">
+              {(new Date(weather.sys.sunrise).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }))}
+            </p>
           </div>
 
           <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
@@ -180,7 +182,9 @@ const Weather: FC<WeatherResponse> = (weather) => {
               <WiSunset className="w-8 h-8 text-accent-content" />
             </div>
             <p className="text-sm text-base-content font-semibold mb-1">Sunset</p>
-            <p className="text-2xl font-bold text-base-content">{(new Date(weather.sys.sunset).toLocaleTimeString("en-IN", {}))}</p>
+            <p className="text-2xl font-bold text-base-content">
+              {(new Date(weather.sys.sunset).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }))}
+            </p>
           </div>
 
         </div>

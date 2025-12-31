@@ -1,7 +1,7 @@
 import base from "../utility/AxiosBase";
 import { type AxiosResponse } from "axios";
 import { useQuery } from '@tanstack/react-query';
-import { type GeolocationType } from "../context/geo-location/GeolocationContext";
+import { type GeolocationType } from "../context/geolocation/GeolocationContext";
 import { type WeatherResponse, weatherResponseSchema } from "./../validators/weather";
 import { placeQuerySchema, coordQuerySchema, coordSchema } from "./../validators/query";
 /**

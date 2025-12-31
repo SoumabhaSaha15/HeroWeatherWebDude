@@ -1,7 +1,7 @@
 import { coordSchema } from "../../validators/query";
+import { DefaultOptions, useToast } from "../toast/ToastContext";
 import { useEffect, useState, type FC, type ReactNode } from "react";
 import { GeolocationContext, type GeolocationType } from "./GeolocationContext";
-import { DefaultOptions, useToast } from "../toast/ToastContext";
 
 const GeolocationProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const toast = useToast();
