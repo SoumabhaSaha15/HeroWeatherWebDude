@@ -24,7 +24,7 @@ const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
   );
 
   return (
-    <ModalContext.Provider value={{ modalRef, openModal, closeModal }}>
+    <ModalContext.Provider value={value}>
       {children}
     </ModalContext.Provider>
   );
