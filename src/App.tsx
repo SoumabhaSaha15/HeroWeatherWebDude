@@ -1,108 +1,138 @@
-import React from "react";
-import { prettifyError, z } from "zod";
-import Search from "./components/Search";
-import Weather from "./components/Weather";
-import AxiosBase from "./utility/AxiosBase";
-import Forecast from "./components/Forecast";
-import GetLocation from "./utility/GetLocationAccess";
-import { useTheme } from "./context/theme/ThemeContext";
-import { useToast } from "./context/toast/ToastContext";
-import WeatherDetails from "./components/WeatherDetails";
-import { useDataStore } from "./context/data/DataStoreContext";
-import { weatherResponseSchema } from "./validators/weather";
-import { forecastResponseSchema } from "./validators/forecast";
-import { coordQuerySchema, placeQuerySchema } from "./validators/query";
+import useRipple from "use-ripple-hook";
+import { IoMdClose } from "react-icons/io";
+import { useState, type FC, type JSX } from "react";
+import WeatherCity from "./components/weather/City";
+import ForecastCity from "./components/forecast/City";
+import WeatherCoords from "./components/weather/Coords";
+import { useModal } from "./context/modal/ModalContext";
+import ForecastCoords from "./components/forecast/Coords";
+import { FaSearch, FaSearchLocation } from "react-icons/fa";
+import { WiDayStormShowers, WiTime3 } from "react-icons/wi";
+import useGeolocation from "./context/geolocation/GeolocationContext";
 
-const App: React.FC = () => {
-  const { applyTheme } = useTheme();
-  const dataConsumer = useDataStore();
-  const toast = useToast();
-  const setDefaultLocation = () =>
-    GetLocation(
-      async ({ coords: { longitude, latitude } }) => {
-        try {
-          const paramsString = new URLSearchParams(
-            coordQuerySchema.parse({ lon: longitude, lat: latitude })
-          ).toString();
-          const weatherResponse = await AxiosBase.get(
-            import.meta.env.VITE_OW_WEATHER + `?${paramsString}`
-          );
-          const forecastResponse = await AxiosBase.get(
-            import.meta.env.VITE_OW_FORECAST + `?${paramsString}`
-          );
-          dataConsumer.setWeather(
-            weatherResponseSchema.parse(weatherResponse.data)
-          );
-          dataConsumer.setForecast(
-            forecastResponseSchema.parse(forecastResponse.data)
-          );
-        } catch (error) {
-          console.error(
-            error instanceof z.ZodError ? prettifyError(error) : error
-          );
-        }
-      },
-      async (e) => {
-        toast.open(e.message,true,2000,{toastVariant:"alert-error",toastPosition:["toast-end","toast-bottom"]});
-        try {
-          const paramsString = new URLSearchParams(
-            placeQuerySchema.parse({ q: "Kolkata" })
-          ).toString();
-          const weatherResponse = await AxiosBase.get(
-            import.meta.env.VITE_OW_WEATHER + `?${paramsString}`
-          );
-          const forecastResponse = await AxiosBase.get(
-            import.meta.env.VITE_OW_FORECAST + `?${paramsString}`
-          );
-          dataConsumer.setWeather(
-            weatherResponseSchema.parse(weatherResponse.data)
-          );
-          dataConsumer.setForecast(
-            forecastResponseSchema.parse(forecastResponse.data)
-          );
-        } catch (error) {
-          console.error(
-            error instanceof z.ZodError ? prettifyError(error) : error
-          );
-        }
-      }
+const App: FC = () => {
+  const [rippleClose, eventClose] = useRipple<HTMLButtonElement>();
+  const [rippleSearch, eventSearch] = useRipple<HTMLButtonElement>();
+  const [rippleWeather, eventWeather] = useRipple<HTMLButtonElement>();
+  const [rippleForecast, eventForecast] = useRipple<HTMLButtonElement>();
+  const { openModal, modalRef, closeModal } = useModal();
+  const { geolocation } = useGeolocation();
+  const [city, setCity] = useState<string | null>(null);
+
+  const renderContent = (): JSX.Element => {
+    if (city === null && geolocation === null)
+      return (
+        <>
+          <WeatherCity q={"kolkata"} />
+          <ForecastCity q={"kolkata"} />
+        </>
+      );
+    else if (city === null && geolocation !== null)
+      return (
+        <>
+          <WeatherCoords {...geolocation} />
+          <ForecastCoords {...geolocation} />
+        </>
+      );
+    else return (
+      <>
+        <WeatherCity q={city as string} />
+        <ForecastCity q={city as string} />
+      </>
     );
-
-  React.useEffect(() => {
-    setDefaultLocation();
-  }, []);
-
-  React.useEffect(() => {
-    if (dataConsumer.weather !== null) {
-      const hour = new Date(dataConsumer.weather.dt * 1000).getHours();
-      document.documentElement.style.backgroundImage =
-        hour >= 5 && hour < 16 ? "var(--morning)" : "var(--evening)";
-    }
-  }, [dataConsumer.weather]);
-
-  React.useEffect(()=>{
-    const hour = new Date().getHours();
-    applyTheme(hour>=6 && hour<18 ? 'light':'dark');
-  },[])
+  }
 
   return (
-    <div className="h-screen max-h-screen w-full grid grid-cols-1 md:grid-cols-2 md:gap-2">
-      <div className="p-2 h-screen max-h-screen" id="Weather">
-        <Search setDefaultLocation={setDefaultLocation} />
-        <div className="h-[calc(100%-4.5rem)] max-h-[calc(100%-5.5rem)] overflow-y-auto my-1 p-1">
-          <Weather />
-          <WeatherDetails />
+    <>
+      <div className="min-h-dvh bg-transparent overflow-y-auto">
+        {renderContent()}
+        {/*dock*/}
+        <div className="dock dock-md">
+          <button id="WeatherButton"
+            ref={rippleWeather}
+            onPointerDown={eventWeather}
+            className="dock-active"
+            onClick={({ currentTarget }) => {
+              currentTarget.classList.add('dock-active');
+              document.getElementById('ForecastButton')?.classList.remove('dock-active');
+              document.getElementById("Weather")?.classList.remove('hidden');
+              document.getElementById("Forecast")?.classList.add('hidden');
+            }}
+          >
+            <WiDayStormShowers />
+            <span className="dock-label">Weather</span>
+          </button>
+
+
+
+          <button
+            ref={rippleSearch}
+            onPointerDown={eventSearch}
+            onClick={() => openModal()}
+          >
+            <FaSearch />
+            <span className="dock-label">Search</span>
+          </button>
+
+          <button
+            id="ForecastButton"
+            ref={rippleForecast}
+            onPointerDown={eventForecast}
+            onClick={({ currentTarget }) => {
+              currentTarget.classList.add('dock-active');
+              document.getElementById('WeatherButton')?.classList.remove('dock-active');
+              document.getElementById("Weather")?.classList.add('hidden');
+              document.getElementById("Forecast")?.classList.remove('hidden');
+            }}
+          >
+            <WiTime3 />
+            <span className="dock-label">Forecast</span>
+          </button>
         </div>
+
+
       </div>
 
-      <div
-        id="Forecast"
-        className="relative p-2 h-screen max-h-screen overflow-y-auto"
-      >
-        <Forecast />
-      </div>
-    </div>
-  );
-};
+      <dialog ref={modalRef} className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg flex items-center gap-2 w-full justify-between px-2">
+            Search Wheather
+            <button
+              className="btn btn-md btn-circle btn-error"
+              ref={rippleClose}
+              onPointerDown={eventClose}
+              onClick={() => closeModal()}
+            >
+              <IoMdClose className="text-2xl font-black" />
+            </button>
+          </h3>
+
+          <div className="py-4" >
+            <div className="flex justify-center">
+              <label
+                className="input rounded-full w-[calc(100%-8px)] px-2 focus-within:outline-none! focus-within:ring-0 focus-within:ring-accent"
+                htmlFor="NameInput"
+              >
+                <FaSearchLocation className="text-lg" />
+                <input
+                  type="search"
+                  id="NameInput"
+                  onKeyDown={({ currentTarget, key }) => {
+                    if (key === "Enter") {
+                      setCity(currentTarget.value || '');
+                      document.getElementById("WeatherButton")?.click();
+                    }
+                  }}
+                  placeholder="Search Place"
+                  required
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+      </dialog>
+    </>
+  )
+}
 
 export default App;

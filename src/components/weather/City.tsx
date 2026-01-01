@@ -7,7 +7,7 @@ const WeatherCity: FC<z.infer<typeof placeSchema>> = ({ q }) => {
   const { isLoading, data, error } = useWeatherByCity(q);
   return (
     <>
-      {isLoading ? (<>loading</>) : ((data) ? (<Weather {...data} />) : (error))}
+      {isLoading ? (<>loading</>) : ((data) ? (<Weather {...data} />) : (error?.message ?? "Error fetching forecast"))}
     </>
   )
 };

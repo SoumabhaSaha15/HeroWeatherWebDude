@@ -1,6 +1,7 @@
-import { type FC } from "react";
-import { type ForecastResponse } from "../../validators/forecast";
-import { DateGrouper, type ForecastWeather } from "./../../utility/DateGrouper"
+import { useEffect, type FC } from "react";
+import { type ForecastResponse, forecastResponseSchema } from "../../validators/forecast";
+
+import { DateGrouper, type ForecastWeather } from "../../utility/DateGrouper"
 import {
   WiThermometer,
   WiHumidity,
@@ -204,8 +205,7 @@ const ForecastCard: FC<ForecastWeather> = (forecast) => {
   );
 };
 
-const Forecast: FC<ForecastResponse> = (forecast) => {
-  const groupedData = DateGrouper(forecast.list);
+const Forecast: FC<{ forecast: ForecastResponse }> = ({ forecast }) => {
 
   return (
     <div className="hidden card bg-linear-to-br from-base-200 to-base-300 shadow-xl text-base-content h-dvh rounded-none overflow-y-auto" id="Forecast">
@@ -219,7 +219,7 @@ const Forecast: FC<ForecastResponse> = (forecast) => {
         <div className="divider my-2"></div>
 
         <div className="space-y-4">
-          {groupedData.map((group, index) => (
+          {DateGrouper(forecast.list).map((group, index) => (
             <div key={index} className="collapse collapse-arrow bg-base-100 shadow-lg">
               <input type="checkbox" defaultChecked={index === 0} />
               <div className="collapse-title text-xl font-bold text-base-content">

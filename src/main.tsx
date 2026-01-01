@@ -1,5 +1,5 @@
 import './index.css';
-import NewApp from './NewApp';
+import App from './App';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client'
 import DaisyProvider from './context/DaisyProvider';
@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import GeolocationProvider from './context/geolocation/GeolocationProvider';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
+import ErrorComponent from './ErrorComponent';
 
 const persister = createAsyncStoragePersister({ storage: window.localStorage });
 
@@ -22,17 +23,17 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ErrorBoundary FallbackComponent={({ error }) => <div>Something went wrong. {(error as Error).message}</div>}>
-      <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
-        <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
+    <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
+      <ErrorBoundary FallbackComponent={({ error }) => (<ErrorComponent error={error} />)}>
         {/* <DataStoreProvider> */}
         {/* </DataStoreProvider> */}
         <DaisyProvider>
           <GeolocationProvider>
-            <NewApp />
+            <App />
           </GeolocationProvider>
         </DaisyProvider>
-      </PersistQueryClientProvider>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </PersistQueryClientProvider>
   </StrictMode>,
 )

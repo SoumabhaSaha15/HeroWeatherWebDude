@@ -6,7 +6,7 @@ const WeatherCoords: FC<Exclude<GeolocationType, null>> = (coords) => {
   const { isLoading, data, error } = useWeatherByCoords(coords);
   return (
     <>
-      {isLoading ? (<>loading</>) : ((data) ? (<Weather {...data} />) : (error))}
+      {isLoading ? (<>loading</>) : ((data) ? (<Weather {...data} />) : (error?.message ?? "Error fetching forecast"))}
     </>
   )
 };

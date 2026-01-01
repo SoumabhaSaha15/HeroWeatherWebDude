@@ -38,9 +38,9 @@ export const useForecastByCity = (city: string) => {
 
 export const useForecastByCoordinates = (coords: Exclude<GeolocationType, null>) => {
   return useQuery({
-    queryKey: ['weather', 'coords', coords.lon, coords.lat],
+    queryKey: ['forecast', 'coords', coords.lon, coords.lat],
     queryFn: () => fetchForecastByCoordinates(coords),
-    enabled: coordSchema.safeParse(coords).success,             // Don't fetch if city is empty
+    enabled: coordSchema.safeParse(coords).success,
     staleTime: 1000 * 60 * 10,   // Data is fresh for 10 minutes
     gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours (offline support)
     retry: 1,                    // Retry once if API fails
