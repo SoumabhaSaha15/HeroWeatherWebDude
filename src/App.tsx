@@ -63,9 +63,8 @@ const App: FC = () => {
             <span className="dock-label">Weather</span>
           </button>
 
-
-
           <button
+            className="btn-primary"
             ref={rippleSearch}
             onPointerDown={eventSearch}
             onClick={() => openModal()}
