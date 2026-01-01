@@ -1,5 +1,5 @@
-import { useEffect, type FC } from "react";
-import { type ForecastResponse, forecastResponseSchema } from "../../validators/forecast";
+import { type FC } from "react";
+import { type ForecastResponse } from "../../validators/forecast";
 
 import { DateGrouper, type ForecastWeather } from "../../utility/DateGrouper"
 import {
@@ -15,7 +15,6 @@ import {
 import {
   FaTemperatureHigh,
   FaTemperatureLow,
-  // FaWind
 } from "react-icons/fa6";
 
 const ForecastCard: FC<ForecastWeather> = (forecast) => {

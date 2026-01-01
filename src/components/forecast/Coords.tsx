@@ -1,4 +1,4 @@
-import { useEffect, type FC } from "react";
+import { type FC } from "react";
 import Forcast from "./Forecast";
 import { useForecastByCoordinates } from "../../hooks/forecastQuery";
 import type { GeolocationType } from "../../context/geolocation/GeolocationContext";
