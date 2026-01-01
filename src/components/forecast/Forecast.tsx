@@ -204,7 +204,7 @@ const ForecastCard: FC<ForecastWeather> = (forecast) => {
   );
 };
 
-const Forecast: FC<{ forecast: ForecastResponse }> = ({ forecast }) => {
+const Forecast: FC<ForecastResponse> = (forecast ) => {
 
   return (
     <div className="hidden card bg-linear-to-br from-base-200 to-base-300 shadow-xl text-base-content h-dvh rounded-none overflow-y-auto" id="Forecast">

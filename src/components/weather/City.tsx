@@ -1,13 +1,21 @@
-import { type FC } from "react";
 import { z } from "zod";
-import { placeSchema } from "../../validators/query";
 import Weather from "./Weather";
+import { useEffect, type FC } from "react";
+import { WeatherSkeleton } from "../Loader";
+import { WeatherNotFound } from "../NotFound";
+import { placeSchema } from "../../validators/query";
+import { useToast } from "../../context/toast/ToastContext";
 import { useWeatherByCity } from "../../hooks/weatherQuery";
+
 const WeatherCity: FC<z.infer<typeof placeSchema>> = ({ q }) => {
   const { isLoading, data, error } = useWeatherByCity(q);
+  const toast = useToast();
+  useEffect(() => {
+    if (error) toast.open(error.message);
+  }, [error]);
   return (
     <>
-      {isLoading ? (<>loading</>) : ((data) ? (<Weather {...data} />) : (error?.message ?? "Error fetching forecast"))}
+      {isLoading ? (<WeatherSkeleton />) : ((data) ? (<Weather {...data} />) : (<WeatherNotFound />))}
     </>
   )
 };
