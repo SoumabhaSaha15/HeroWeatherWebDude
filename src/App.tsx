@@ -7,21 +7,20 @@ import WeatherCoords from "./components/weather/Coords";
 import { useModal } from "./context/modal/ModalContext";
 import { useCachedCities } from "./hooks/useCachedCities";
 import ForecastCoords from "./components/forecast/Coords";
-import { WiDayStormShowers, WiTime3 } from "react-icons/wi";
-import { useEffect, useState, type FC, type JSX } from "react";
+import { useEffect, useRef, useState, type FC, type JSX } from "react";
 import useGeolocation from "./context/geolocation/GeolocationContext";
 
 const App: FC = () => {
+  const cachedCities = useCachedCities();
+  const { geolocation } = useGeolocation();
+  const [city, setCity] = useState<string | null>(null);
+  const { openModal, modalRef, closeModal } = useModal();
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const [rippleClose, eventClose] = useRipple<HTMLButtonElement>();
   const [rippleSearch, eventSearch] = useRipple<HTMLButtonElement>();
-  const [rippleWeather, eventWeather] = useRipple<HTMLButtonElement>();
-  const [rippleForecast, eventForecast] = useRipple<HTMLButtonElement>();
-  const { openModal, modalRef, closeModal } = useModal();
-  const cachedCities = useCachedCities();
-  const [city, setCity] = useState<string | null>(null);
-  const { geolocation } = useGeolocation();
-  useEffect(() => setSearchHistory(cachedCities), [cachedCities]);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => setSearchHistory(cachedCities), [cachedCities.toSorted().toString()]);
 
   const renderContent = (): JSX.Element => {
     if (city === null && geolocation === null)
@@ -50,24 +49,7 @@ const App: FC = () => {
     <>
       <div className="min-h-dvh bg-transparent overflow-y-auto">
         {renderContent()}
-
-        {/*dock*/}
-        <div className="dock dock-md">
-          <button id="WeatherButton"
-            ref={rippleWeather}
-            onPointerDown={eventWeather}
-            className="dock-active"
-            onClick={({ currentTarget }) => {
-              currentTarget.classList.add('dock-active');
-              document.getElementById('ForecastButton')?.classList.remove('dock-active');
-              document.getElementById("Weather")?.classList.remove('hidden');
-              document.getElementById("Forecast")?.classList.add('hidden');
-            }}
-          >
-            <WiDayStormShowers />
-            <span className="dock-label">Weather</span>
-          </button>
-
+        <div className="fab">
           <button
             className="btn btn-accent btn-circle btn-md focus:outline-none! focus:ring-0 focus:ring-accent"
             ref={rippleSearch}
@@ -75,21 +57,6 @@ const App: FC = () => {
             onClick={() => openModal()}
           >
             <FaSearchLocation className="text-lg" />
-          </button>
-
-          <button
-            id="ForecastButton"
-            ref={rippleForecast}
-            onPointerDown={eventForecast}
-            onClick={({ currentTarget }) => {
-              currentTarget.classList.add('dock-active');
-              document.getElementById('WeatherButton')?.classList.remove('dock-active');
-              document.getElementById("Weather")?.classList.add('hidden');
-              document.getElementById("Forecast")?.classList.remove('hidden');
-            }}
-          >
-            <WiTime3 />
-            <span className="dock-label">Forecast</span>
           </button>
         </div>
       </div>
@@ -120,6 +87,7 @@ const App: FC = () => {
                 <input
                   type="search"
                   id="NameInput"
+                  ref={inputRef}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
@@ -134,10 +102,15 @@ const App: FC = () => {
                 />
               </label>
             </div>
-            <ul tabIndex={-1} className="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-sm">
-              {searchHistory.map((item, index) => (<li key={index} onClick={() => {
-                document.querySelector("input#NameInput")?.setAttribute('value', item);
-              }}><a>{item}</a></li>))}
+            <ul tabIndex={-1} className="dropdown-content menu bg-base-300 rounded-box z-1 w-full p-2 mt-2.5 shadow-sm">
+              {searchHistory.map((item, index) => (
+                <li key={index} onClick={() => {
+                  console.log(inputRef.current?.value);
+                  inputRef.current && inputRef.current.setAttribute('value', item);
+                }}>
+                  <a>{item}</a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

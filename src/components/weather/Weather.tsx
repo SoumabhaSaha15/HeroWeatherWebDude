@@ -21,7 +21,7 @@ import {
 
 const Weather: FC<WeatherResponse> = (weather) => {
   return (
-    <div className="card bg-linear-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 text-base-content h-dvh rounded-none" id="Weather">
+    <div className="card bg-linear-to-br from-base-200 to-base-300 transition-all duration-300 text-base-content rounded-none" id="Weather">
       <div className="card-body">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
           <div className="flex items-center gap-3">
