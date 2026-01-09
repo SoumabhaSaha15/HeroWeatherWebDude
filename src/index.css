@@ -10,6 +10,185 @@ html[data-theme] {
   --depth: 0;
 }
 
+@plugin "daisyui/theme" {
+  name: "dawn";
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Soft Pinks and Cool Blues */
+  --color-base-100: oklch(98% 0.01 320); /* Rose White */
+  --color-base-200: oklch(95% 0.02 320);
+  --color-base-300: oklch(92% 0.03 320);
+  --color-base-content: oklch(30% 0.05 290);
+
+  --color-primary: oklch(75% 0.15 340); /* Soft Pink */
+  --color-primary-content: oklch(98% 0.01 340);
+  --color-secondary: oklch(80% 0.12 240); /* Pale Blue */
+  --color-secondary-content: oklch(98% 0.01 240);
+  --color-accent: oklch(85% 0.15 90); /* Morning Sun Gold */
+  --color-accent-content: oklch(30% 0.05 90);
+  
+  --color-neutral: oklch(40% 0.05 290);
+  --color-neutral-content: oklch(98% 0.01 290);
+
+  --color-info: oklch(75% 0.15 240);
+  --color-success: oklch(75% 0.15 160);
+  --color-warning: oklch(85% 0.15 90);
+  --color-error: oklch(75% 0.15 25);
+
+  /* YOUR RULES */
+  --radius-selector: 1rem;
+  --radius-field: 1rem;
+  --radius-box: 1rem;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* 2. MORNING: Bright, crisp, and energetic */
+@plugin "daisyui/theme" {
+  name: "morning";
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Clean Whites and Sky Blues */
+  --color-base-100: oklch(100% 0 0);     /* Pure White */
+  --color-base-200: oklch(96% 0.01 250);
+  --color-base-300: oklch(92% 0.02 250);
+  --color-base-content: oklch(20% 0.05 250);
+
+  --color-primary: oklch(60% 0.2 250);   /* Sky Blue */
+  --color-primary-content: oklch(98% 0.01 250);
+  --color-secondary: oklch(70% 0.18 150); /* Fresh Green */
+  --color-secondary-content: oklch(98% 0.01 150);
+  --color-accent: oklch(65% 0.2 30);     /* Coral */
+  --color-accent-content: oklch(98% 0.01 30);
+
+  --color-neutral: oklch(30% 0.05 250);
+  --color-neutral-content: oklch(98% 0.01 250);
+
+  --color-info: oklch(70% 0.15 240);
+  --color-success: oklch(65% 0.2 140);
+  --color-warning: oklch(80% 0.2 80);
+  --color-error: oklch(65% 0.25 30);
+
+  /* YOUR RULES */
+  --radius-selector: 1rem;
+  --radius-field: 1rem;
+  --radius-box: 1rem;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* 3. NOON: High contrast, warm, representing harsh sun */
+@plugin "daisyui/theme" {
+  name: "noon";
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Warm Creams and Golds */
+  --color-base-100: oklch(98% 0.02 85); /* Warm Cream */
+  --color-base-200: oklch(94% 0.03 85);
+  --color-base-300: oklch(90% 0.04 85);
+  --color-base-content: oklch(25% 0.05 50);
+
+  --color-primary: oklch(65% 0.22 60);  /* Deep Orange/Gold */
+  --color-primary-content: oklch(98% 0.01 60);
+  --color-secondary: oklch(55% 0.2 30); /* Heat Red */
+  --color-secondary-content: oklch(98% 0.01 30);
+  --color-accent: oklch(70% 0.18 100);  /* Sun Yellow */
+  --color-accent-content: oklch(20% 0.05 100);
+
+  --color-neutral: oklch(35% 0.05 50);
+  --color-neutral-content: oklch(98% 0.01 50);
+
+  --color-info: oklch(70% 0.15 220);
+  --color-success: oklch(65% 0.2 140);
+  --color-warning: oklch(80% 0.2 80);
+  --color-error: oklch(60% 0.25 30);
+
+  /* YOUR RULES */
+  --radius-selector: 1rem;
+  --radius-field: 1rem;
+  --radius-box: 1rem;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* 4. EVENING: Dimming light, rich purples and sunset oranges */
+@plugin "daisyui/theme" {
+  name: "evening";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Dark Purples and Sunset Gradients */
+  --color-base-100: oklch(25% 0.05 280); /* Deep Purple Grey */
+  --color-base-200: oklch(20% 0.05 280);
+  --color-base-300: oklch(15% 0.05 280);
+  --color-base-content: oklch(90% 0.05 280);
+
+  --color-primary: oklch(60% 0.25 20);   /* Sunset Red */
+  --color-primary-content: oklch(98% 0.01 20);
+  --color-secondary: oklch(65% 0.25 300);/* Twilight Purple */
+  --color-secondary-content: oklch(98% 0.01 300);
+  --color-accent: oklch(70% 0.2 60);     /* Horizon Orange */
+  --color-accent-content: oklch(15% 0.05 60);
+
+  --color-neutral: oklch(20% 0.05 280);
+  --color-neutral-content: oklch(90% 0.02 280);
+
+  --color-info: oklch(60% 0.15 240);
+  --color-success: oklch(60% 0.2 140);
+  --color-warning: oklch(70% 0.2 50);
+  --color-error: oklch(55% 0.25 25);
+
+  /* YOUR RULES */
+  --radius-selector: 1rem;
+  --radius-field: 1rem;
+  --radius-box: 1rem;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* 5. NIGHT: Dark, cool, low contrast for eye safety */
+@plugin "daisyui/theme" {
+  name: "night";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Deep Blacks and Midnight Blues */
+  --color-base-100: oklch(15% 0.02 260); /* Midnight Blue Black */
+  --color-base-200: oklch(12% 0.02 260);
+  --color-base-300: oklch(8% 0.02 260);
+  --color-base-content: oklch(85% 0.02 260);
+
+  --color-primary: oklch(65% 0.15 250);  /* Moon Blue */
+  --color-primary-content: oklch(10% 0.02 250);
+  --color-secondary: oklch(50% 0.15 280); /* Deep Indigo */
+  --color-secondary-content: oklch(95% 0.01 280);
+  --color-accent: oklch(75% 0.15 180);   /* Cyan/Teal (Cyber vibe) */
+  --color-accent-content: oklch(10% 0.02 180);
+
+  --color-neutral: oklch(10% 0.02 260);
+  --color-neutral-content: oklch(80% 0.02 260);
+
+  --color-info: oklch(60% 0.15 230);
+  --color-success: oklch(55% 0.2 150);
+  --color-warning: oklch(70% 0.2 80);
+  --color-error: oklch(55% 0.25 25);
+
+  /* YOUR RULES */
+  --radius-selector: 1rem;
+  --radius-field: 1rem;
+  --radius-box: 1rem;
+  --depth: 0;
+  --noise: 0;
+}
+
 * {
   font-style: normal;
   font-optical-sizing: auto;

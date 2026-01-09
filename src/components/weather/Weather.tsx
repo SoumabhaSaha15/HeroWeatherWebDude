@@ -1,5 +1,6 @@
 import { type FC } from "react";
 import { type WeatherResponse } from "../../validators/weather";
+
 import {
   WiThermometer,
   WiHumidity,
@@ -31,10 +32,10 @@ const Weather: FC<WeatherResponse> = (weather) => {
               </div>
             </div>
             <div>
-              <h2 className="card-title text-2xl sm:text-3xl font-bold text-base-content">
+              <h2 className="card-title text-2xl sm:text-3xl font-bold text-primary">
                 {weather.name}
               </h2>
-              <p className="text-sm text-secondary-content">{weather.sys.country}</p>
+              <p className="text-sm text-primary">{weather.sys.country}</p>
             </div>
           </div>
           <div className="flex flex-col items-start sm:items-end">

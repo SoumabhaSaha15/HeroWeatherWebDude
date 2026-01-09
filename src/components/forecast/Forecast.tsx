@@ -1,6 +1,6 @@
 import { type FC } from "react";
 import { type ForecastResponse } from "../../validators/forecast";
-
+import { LuCalendarClock } from "react-icons/lu";
 import { DateGrouper, type ForecastWeather } from "../../utility/DateGrouper"
 import {
   WiThermometer,
@@ -19,7 +19,7 @@ import {
 
 const ForecastCard: FC<ForecastWeather> = (forecast) => {
   return (
-    <div className="carousel-item w-full">
+    <div className="carousel-item w-full xl:w-1/2 2xl:w-1/3">
       <div className="card bg-accent shadow-lg w-full">
         <div className="card-body">
           <div className="flex justify-between items-center mb-4">
@@ -189,8 +189,13 @@ const Forecast: FC<ForecastResponse> = (forecast) => {
     <div className="card bg-linear-to-br from-base-200 to-base-300 shadow-xl text-base-content rounded-none">
       <div className="card-body">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="card-title text-3xl font-bold">
-            {forecast.city.name}, {forecast.city.country}
+          <h2 className="card-title text-3xl font-bold text-pretty text-primary">
+            <div className="avatar placeholder">
+              <div className="bg-primary text-primary-content rounded-full w-12 grid place-items-center">
+                <LuCalendarClock className="w-6 h-6" />
+              </div>
+            </div>
+            Forecast : {forecast.city.name}, {forecast.city.country}
           </h2>
         </div>
 
