@@ -116,7 +116,7 @@ const App: FC = () => {
                 />
               </label>
             </div>
-            {cachedCities.length && (<ul tabIndex={-1} className="dropdown-content menu bg-base-300 rounded-box z-1 w-full p-2 mt-1.5 shadow-sm">
+            {cachedCities.length ? (<ul tabIndex={-1} className="dropdown-content menu bg-base-300 rounded-box z-1 w-full p-2 mt-1.5 shadow-sm">
               {cachedCities.map((item, index) => (
                 <li key={index} onClick={() => {
                   setSearch(item);
@@ -126,7 +126,7 @@ const App: FC = () => {
                   <a className="bg-base-100 hover:bg-accent mb-0.5" >{item}</a>
                 </li>
               ))}
-            </ul>)}
+            </ul>) : (<></>)}
           </div>
         </div>
       </dialog>
