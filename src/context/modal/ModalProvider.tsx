@@ -6,9 +6,7 @@ const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
 
   // 1. Use useCallback to keep these functions stable across renders
   const openModal = useCallback((): void => {
-    if (modalRef.current) {
-      modalRef.current.showModal();
-    }
+    modalRef.current && modalRef.current.showModal();
   }, []);
 
   const closeModal = useCallback((): void => {

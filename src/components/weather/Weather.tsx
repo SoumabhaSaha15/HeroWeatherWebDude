@@ -21,7 +21,7 @@ import {
 
 const Weather: FC<WeatherResponse> = (weather) => {
   return (
-    <div className="card bg-linear-to-br from-base-200 to-base-300 transition-all duration-300 text-base-content rounded-none" id="Weather">
+    <div className="card bg-linear-to-br from-base-200 to-base-300 transition-all duration-300 text-base-content rounded-none">
       <div className="card-body">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
           <div className="flex items-center gap-3">
@@ -44,9 +44,29 @@ const Weather: FC<WeatherResponse> = (weather) => {
           </div>
         </div>
 
-        <div className="divider my-2"></div>
+        <div className="divider my-1" />
+
 
         <div className="flex flex-wrap gap-4 justify-center items-center mb-6">
+          {/* Rain Data Card */}
+          <div className="flex items-center gap-3 bg-accent backdrop-blur-sm rounded-2xl p-4 shadow-md">
+            <div className="avatar placeholder">
+              <div className="w-20 h-20 rounded-xl grid place-items-center">
+                <WiRaindrops className="w-full h-full" />
+              </div>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-accent-content">Rain</p>
+              {weather.rain ? (
+                <p className="text-sm text-accent-content">
+                  {weather.rain["1h"] ? `${weather.rain["1h"]} mm/hr` : weather.rain["3h"] ? `${weather.rain["3h"]} mm/3hr` : "No record"}
+                </p>
+              ) : (
+                <p className="text-sm text-accent-content/70">No record</p>
+              )}
+            </div>
+          </div>
+
           {weather.weather.map((w, idx) => (
             <div key={idx} className="flex items-center gap-3 bg-accent backdrop-blur-sm rounded-2xl p-4 shadow-md">
               <div className="avatar">
@@ -60,14 +80,33 @@ const Weather: FC<WeatherResponse> = (weather) => {
                 </div>
               </div>
               <div>
-                <p className="text-xl font-bold text-accent-content">{w.main}</p>
+                <p className="text-xl font-bold text-accent-content">Status:{w.main}</p>
                 <p className="text-sm text-accent-content capitalize">{w.description}</p>
               </div>
             </div>
           ))}
+
+          {/* Snow Data Card */}
+          <div className="flex items-center gap-3 bg-accent backdrop-blur-sm rounded-2xl p-4 shadow-md">
+            <div className="avatar placeholder">
+              <div className="w-20 h-20 rounded-xl grid place-items-center">
+                <WiSnowflakeCold className="w-full h-full text-accent-focus" />
+              </div>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-accent-content">Snow</p>
+              {weather.snow ? (
+                <p className="text-sm text-accent-content">
+                  {weather.snow["1h"] ? `${weather.snow["1h"]} mm/hr` : weather.snow["3h"] ? `${weather.snow["3h"]} mm/3hr` : "No record"}
+                </p>
+              ) : (
+                <p className="text-sm text-accent-content/70">No record</p>
+              )}
+            </div>
+          </div>
         </div>
 
-        <div className="divider my-2" />
+        <div className="divider my-1" />
 
         <div className="stats stats-vertical md:stats-horizontal shadow-lg bg-base-100 backdrop-blur-sm w-full mb-4">
           <div className="stat place-items-center">
@@ -188,64 +227,6 @@ const Weather: FC<WeatherResponse> = (weather) => {
           </div>
 
         </div>
-
-        {weather.rain && (
-          <>
-            <div className="divider my-4">
-              <span className="badge badge-info badge-lg gap-2">
-                <WiRaindrops className="w-5 h-5" />
-                Rain Data
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {weather.rain["1h"] && (
-                <div className="alert alert-info shadow-lg">
-                  <div className="flex flex-col items-center w-full">
-                    <span className="text-2xl font-bold">{weather.rain["1h"]} mm</span>
-                    <span className="text-sm">Past hour</span>
-                  </div>
-                </div>
-              )}
-              {weather.rain["3h"] && (
-                <div className="alert alert-info shadow-lg">
-                  <div className="flex flex-col items-center w-full">
-                    <span className="text-2xl font-bold">{weather.rain["3h"]} mm</span>
-                    <span className="text-sm">Past 3 hours</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </>
-        )}
-
-        {weather.snow && (
-          <>
-            <div className="divider my-4">
-              <span className="badge badge-accent badge-lg gap-2">
-                <WiSnowflakeCold className="w-5 h-5" />
-                Snow Data
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {weather.snow["1h"] && (
-                <div className="alert alert-accent shadow-lg">
-                  <div className="flex flex-col items-center w-full">
-                    <span className="text-2xl font-bold">{weather.snow["1h"]} mm</span>
-                    <span className="text-sm">Past hour</span>
-                  </div>
-                </div>
-              )}
-              {weather.snow["3h"] && (
-                <div className="alert alert-accent shadow-lg">
-                  <div className="flex flex-col items-center w-full">
-                    <span className="text-2xl font-bold">{weather.snow["3h"]} mm</span>
-                    <span className="text-sm">Past 3 hours</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </>
-        )}
       </div>
     </div>
   );

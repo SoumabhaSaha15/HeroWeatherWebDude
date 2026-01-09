@@ -37,7 +37,7 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: 'Daisy Weather',
           short_name: 'weather-app',
-          description: 'A weather app built with React, Vite, and Tailwind CSS. -Soumabha Saha',
+          description: 'A weather app built with React, Vite, and Tailwind CSS and daisy-ui. -Soumabha Saha',
           theme_color: '#00000000',
           icons: [{
             src: "pwa-64x64.png",
@@ -65,7 +65,7 @@ export default defineConfig(({ mode }) => {
     ],
     server: {
       proxy: {
-        "/api":{
+        "/api": {
           target: targetUrl,
           changeOrigin: true,
           rewrite: path => path.replace(/^\/api/, '')
