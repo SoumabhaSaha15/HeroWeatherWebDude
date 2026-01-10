@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import z from 'zod/v4';
 const baseSchema = z.strictObject({
   units: z.enum(['metric', 'imperial']).default('metric'),
   lang: z.string().default('en'),

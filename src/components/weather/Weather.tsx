@@ -13,11 +13,11 @@ import {
   WiSunrise,
   WiSunset
 } from "react-icons/wi";
+import { GiWindsock } from "react-icons/gi";
 import {
   FaLocationDot,
   FaTemperatureHigh,
   FaTemperatureLow,
-  FaWind
 } from "react-icons/fa6";
 
 const Weather: FC<WeatherResponse> = (weather) => {
@@ -39,7 +39,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
             </div>
           </div>
           <div className="flex flex-col items-start sm:items-end">
-            <p className="text-xs sm:text-sm text-primary-content">
+            <p className="text-sm sm:text-sm text-base-content">
               {new Date(weather.dt * 1000).toLocaleString("en-IN")}
             </p>
           </div>
@@ -52,8 +52,8 @@ const Weather: FC<WeatherResponse> = (weather) => {
           {/* Rain Data Card */}
           <div className="flex items-center gap-3 bg-accent backdrop-blur-sm rounded-2xl p-4 shadow-md">
             <div className="avatar placeholder">
-              <div className="w-20 h-20 rounded-xl grid place-items-center">
-                <WiRaindrops className="w-full h-full" />
+              <div className="w-20 h-20 rounded-xl grid place-items-center bg-accent-content">
+                <WiRaindrops className="w-full h-full text-accent" />
               </div>
             </div>
             <div>
@@ -76,7 +76,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
                     src={w.icon}
                     loading="lazy"
                     alt={w.description}
-                    className="w-full h-full object-contain bg-accent"
+                    className="w-full h-full object-contain bg-gray-500 rounded-xl"
                   />
                 </div>
               </div>
@@ -90,8 +90,8 @@ const Weather: FC<WeatherResponse> = (weather) => {
           {/* Snow Data Card */}
           <div className="flex items-center gap-3 bg-accent backdrop-blur-sm rounded-2xl p-4 shadow-md">
             <div className="avatar placeholder">
-              <div className="w-20 h-20 rounded-xl grid place-items-center">
-                <WiSnowflakeCold className="w-full h-full text-accent-focus" />
+              <div className="w-20 h-20 rounded-xl grid place-items-center bg-accent-content">
+                <WiSnowflakeCold className="w-full h-full text-accent" />
               </div>
             </div>
             <div>
@@ -159,23 +159,23 @@ const Weather: FC<WeatherResponse> = (weather) => {
 
           <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
             <div className="flex justify-center mb-2 hover:scale-110">
-              <WiHumidity className="w-8 h-8 text-accent-content" />
+              <WiHumidity className="w-8 h-8 text-accent bg-accent-content rounded-lg" />
             </div>
-            <p className="text-sm text-secondary-content font-semibold mb-1">Humidity</p>
-            <p className="text-2xl font-bold text-secondary-content">{weather.main.humidity}%</p>
+            <p className="text-sm text-base-content font-semibold mb-1">Humidity</p>
+            <p className="text-2xl font-bold text-base-content">{weather.main.humidity}%</p>
           </div>
 
           <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
             <div className="flex justify-center mb-2 hover:scale-110">
-              <WiStrongWind className="w-8 h-8 text-accent-content" />
+              <WiStrongWind className="w-8 h-8 text-accent bg-accent-content rounded-lg" />
             </div>
             <p className="text-sm text-base-content font-semibold mb-1">Wind Speed</p>
-            <p className="text-2xl font-bold text-secondary-content">{weather.wind.speed} m/s</p>
+            <p className="text-2xl font-bold text-base-content">{weather.wind.speed} m/s</p>
           </div>
 
           <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
             <div className="flex justify-center mb-2 hover:scale-110">
-              <WiBarometer className="w-8 h-8 text-accent-content" />
+              <WiBarometer className="w-8 h-8 text-accent bg-accent-content rounded-lg" />
             </div>
             <p className="text-sm text-base-content font-semibold mb-1">Pressure</p>
             <p className="text-2xl font-bold text-base-content">{weather.main.pressure} hPa</p>
@@ -183,7 +183,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
 
           <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
             <div className="flex justify-center mb-2 hover:scale-110">
-              <WiCloud className="w-8 h-8 text-accent-content" />
+              <WiCloud className="w-8 h-8 text-accent bg-accent-content rounded-lg" />
             </div>
             <p className="text-sm text-base-content font-semibold mb-1">Clouds</p>
             <p className="text-2xl font-bold text-base-content">{weather.clouds.all}%</p>
@@ -191,7 +191,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
 
           <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
             <div className="flex justify-center mb-2 hover:scale-110">
-              <WiFog className="w-8 h-8 text-accent-content" />
+              <WiFog className="w-8 h-8 text-accent bg-accent-content rounded-lg" />
             </div>
             <p className="text-sm text-base-content font-semibold mb-1">Visibility</p>
             <p className="text-2xl font-bold text-base-content">{(weather.visibility / 1000).toFixed(1)} km</p>
@@ -200,16 +200,16 @@ const Weather: FC<WeatherResponse> = (weather) => {
           {weather.wind.gust && (
             <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
               <div className="flex justify-center mb-2 hover:scale-110">
-                <FaWind className="w-6 h-6 text-accent-content" />
+                <GiWindsock className="w-8 h-8 text-accent bg-accent-content rounded-lg" />
               </div>
               <p className="text-sm text-base-content font-semibold mb-1">Wind Gust</p>
-              <p className="text-2xl font-bold text-secondary-content">{weather.wind.gust} m/s</p>
+              <p className="text-2xl font-bold text-base-content">{weather.wind.gust} m/s</p>
             </div>
           )}
 
           <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
             <div className="flex justify-center mb-2 hover:scale-110">
-              <WiSunrise className="w-8 h-8 text-accent-content" />
+              <WiSunrise className="w-8 h-8 text-accent bg-accent-content rounded-lg" />
             </div>
             <p className="text-sm text-base-content font-semibold mb-1">Sunrise</p>
             <p className="text-2xl font-bold text-base-content">
@@ -219,7 +219,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
 
           <div className="bg-accent backdrop-blur-sm rounded-xl p-4 shadow-md text-center">
             <div className="flex justify-center mb-2 hover:scale-110">
-              <WiSunset className="w-8 h-8 text-accent-content" />
+              <WiSunset className="w-8 h-8 text-accent bg-accent-content rounded-lg" />
             </div>
             <p className="text-sm text-base-content font-semibold mb-1">Sunset</p>
             <p className="text-2xl font-bold text-base-content">

@@ -27,7 +27,7 @@ const App: FC = () => {
     setTimeout(() => inputRef.current?.focus(), 0);
   };
 
-  useHotkeys('ctrl+k', handleOpenSearch, { preventDefault: true });
+  useHotkeys('mod+k', handleOpenSearch, { preventDefault: true });
 
   const renderContent = (): JSX.Element => {
     if (city === null && geolocation === null)
@@ -75,7 +75,7 @@ const App: FC = () => {
         <div className="modal-box min-h-80">
           <h3 className="font-bold text-lg flex items-center gap-2 w-full justify-between px-2">
             <span>
-              Search Weather &nbsp; <kbd className="kbd rounded-sm" children="ctrl+k" />
+              Search Weather &nbsp; <kbd className="kbd rounded-xl" children="ctrl/⌘+k" />
             </span>
             <button
               className="btn btn-md btn-circle btn-error focus:outline-none! focus:ring-0 focus:ring-accent"
@@ -95,7 +95,7 @@ const App: FC = () => {
                 htmlFor="NameInput"
                 tabIndex={0}
               >
-                <FaSearchLocation className="text-lg" />
+                <FaSearchLocation className="text-md" />
                 <input
                   type="search"
                   id="NameInput"

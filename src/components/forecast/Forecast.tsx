@@ -50,17 +50,17 @@ const ForecastCard: FC<ForecastWeather> = (forecast) => {
             {forecast.weather.map((w, idx) => (
               <div key={idx} className="flex items-center gap-3 bg-base-100 rounded-xl p-3 shadow-md">
                 <div className="avatar">
-                  <div className="w-16 h-16 rounded-lg bg-base-200 p-1">
+                  <div className="w-16 h-16 rounded-lg bg-base-200">
                     <img
                       src={`https://openweathermap.org/img/wn/${w.icon}@2x.png`}
                       loading="lazy"
                       alt={w.description}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-contain bg-gray-500"
                     />
                   </div>
                 </div>
                 <div>
-                  <p className="text-lg font-bold text-base-content">{w.main}</p>
+                  <p className="text-lg font-bold text-base-content">Status:{w.main}</p>
                   <p className="text-sm text-base-content capitalize">{w.description}</p>
                 </div>
               </div>
@@ -130,7 +130,7 @@ const ForecastCard: FC<ForecastWeather> = (forecast) => {
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
             <div className="bg-base-100 rounded-xl p-3 shadow-md text-center">
               <div className="flex justify-center mb-2">
-                <WiHumidity className="w-7 h-7 text-blue-600" />
+                <WiHumidity className="w-7 h-7 text-accent" />
               </div>
               <p className="text-xs font-semibold mb-1">Humidity</p>
               <p className="text-xl font-bold">{forecast.main.humidity}%</p>
@@ -138,7 +138,7 @@ const ForecastCard: FC<ForecastWeather> = (forecast) => {
 
             <div className="bg-base-100 rounded-xl p-3 shadow-md text-center">
               <div className="flex justify-center mb-2">
-                <WiStrongWind className="w-7 h-7 text-green-600" />
+                <WiStrongWind className="w-7 h-7 text-accent" />
               </div>
               <p className="text-xs font-semibold mb-1">Wind Speed</p>
               <p className="text-xl font-bold">{forecast.wind.speed} m/s</p>
@@ -146,7 +146,7 @@ const ForecastCard: FC<ForecastWeather> = (forecast) => {
 
             <div className="bg-base-100 rounded-xl p-3 shadow-md text-center">
               <div className="flex justify-center mb-2">
-                <WiBarometer className="w-7 h-7 text-purple-600" />
+                <WiBarometer className="w-7 h-7 text-accent" />
               </div>
               <p className="text-xs font-semibold mb-1">Pressure</p>
               <p className="text-xl font-bold">{forecast.main.pressure} hPa</p>
@@ -154,7 +154,7 @@ const ForecastCard: FC<ForecastWeather> = (forecast) => {
 
             <div className="bg-base-100 rounded-xl p-3 shadow-md text-center">
               <div className="flex justify-center mb-2">
-                <WiCloud className="w-7 h-7 text-gray-600" />
+                <WiCloud className="w-7 h-7 text-accent" />
               </div>
               <p className="text-xs font-semibold mb-1">Clouds</p>
               <p className="text-xl font-bold">{forecast.clouds.all}%</p>
@@ -162,7 +162,7 @@ const ForecastCard: FC<ForecastWeather> = (forecast) => {
 
             <div className="bg-base-100 rounded-xl p-3 shadow-md text-center">
               <div className="flex justify-center mb-2">
-                <WiFog className="w-7 h-7 text-teal-600" />
+                <WiFog className="w-7 h-7 text-accent" />
               </div>
               <p className="text-xs font-semibold mb-1">Precipitation</p>
               <p className="text-xl font-bold">{Math.round(forecast.pop * 100)}%</p>
@@ -171,7 +171,7 @@ const ForecastCard: FC<ForecastWeather> = (forecast) => {
             {forecast.visibility && (
               <div className="bg-base-100 rounded-xl p-3 shadow-md text-center">
                 <div className="flex justify-center mb-2">
-                  <WiFog className="w-7 h-7 text-teal-600" />
+                  <WiFog className="w-7 h-7 text-accent" />
                 </div>
                 <p className="text-xs font-semibold mb-1">Visibility</p>
                 <p className="text-xl font-bold">{(forecast.visibility / 1000).toFixed(1)} km</p>

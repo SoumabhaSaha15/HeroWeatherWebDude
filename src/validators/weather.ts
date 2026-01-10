@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import z from 'zod/v4';
 export const weatherResponseSchema = z.object({
   coord: z.object({
     lon: z.number(),
