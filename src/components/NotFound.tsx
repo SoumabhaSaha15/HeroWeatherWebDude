@@ -1,67 +1,58 @@
-// WeatherNotFound.tsx
-import { WiCloud } from "react-icons/wi";
-import { FaSearchLocation } from "react-icons/fa";
+import { type FC } from "react";
+import { TbCloudOff, TbSearch } from "react-icons/tb";
 
-export const WeatherNotFound = () => (
-  <div className="card bg-linear-to-br from-base-200 to-base-300 shadow-xl text-base-content h-dvh rounded-none" id="Weather">
-    <div className="card-body flex items-center justify-center">
-      <div className="text-center max-w-md">
-        <div className="flex justify-center mb-6">
-          <div className="relative">
-            <WiCloud className="w-32 h-32 text-base-content opacity-20" />
-            <FaSearchLocation className="w-16 h-16 text-error absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+export const WeatherNotFound: FC<{ message?: string }> = ({ message = "City not found" }) => {
+  return (
+    // Spans 3 columns to fill the main weather area, keeping the layout intact
+    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:col-span-2 xl:col-span-3 min-h-72">
+      <div className="card-body items-center justify-center text-center space-y-4">
+
+        {/* Animated Icon Container */}
+        <div className="relative">
+          <div className="w-24 h-24 rounded-full bg-base-content/5 flex items-center justify-center">
+            <TbCloudOff className="text-5xl text-base-content/30" />
+          </div>
+          <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-error/10 flex items-center justify-center animate-bounce">
+            <TbSearch className="text-xl text-error" />
           </div>
         </div>
 
-        <h2 className="text-3xl font-bold mb-4 text-base-content">
-          Weather Data Not Found
-        </h2>
+        <div>
+          <h2 className="card-title text-xl justify-center opacity-80">{message}</h2>
+          <p className="text-sm opacity-50 max-w-xs mx-auto mt-1">
+            We couldn't find weather data for this location. Please check the spelling and try again.
+          </p>
+        </div>
 
-        <p className="text-lg text-base-content/70 mb-6">
-          Unable to fetch weather information for the requested location. Please try again or search for a different location.
-        </p>
-
-        <div className="alert alert-error shadow-lg mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span>No weather data available</span>
+        {/* Optional Action Hint */}
+        <div className="badge badge-neutral badge-outline gap-2 mt-2 opacity-60 font-mono text-xs">
+          <span>Error 404</span>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
-// ForecastNotFound.tsx
-import { WiDayCloudyGusts } from "react-icons/wi";
-import { FaCalendarXmark } from "react-icons/fa6";
+import { TbCalendarOff } from "react-icons/tb";
 
-export const ForecastNotFound = () => (
-  <div className="card bg-linear-to-br from-base-200 to-base-300 shadow-xl text-base-content h-dvh rounded-none overflow-y-auto" id="Forecast">
-    <div className="card-body flex items-center justify-center">
-      <div className="text-center max-w-md">
-        <div className="flex justify-center mb-6">
-          <div className="relative">
-            <WiDayCloudyGusts className="w-32 h-32 text-base-content opacity-20" />
-            <FaCalendarXmark className="w-16 h-16 text-error absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-          </div>
+export const ForecastNotFound: FC = () => {
+  return (
+    // Matches the exact dimensions of the Forecast Card (Tall)
+    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:row-span-2">
+      <div className="card-body items-center justify-center text-center p-6">
+
+        <div className="w-16 h-16 rounded-2xl bg-base-content/5 flex items-center justify-center mb-4 rotate-3">
+          <TbCalendarOff className="text-3xl text-base-content/30" />
         </div>
 
-        <h2 className="text-3xl font-bold mb-4 text-base-content">
-          Forecast Data Not Found
-        </h2>
-
-        <p className="text-lg text-base-content/70 mb-6">
-          Unable to retrieve forecast information for this location. The data may be temporarily unavailable.
+        <h3 className="font-bold text-base opacity-70">No Forecast</h3>
+        <p className="text-xs opacity-40 mt-1">
+          Forecast data is currently unavailable.
         </p>
 
-        <div className="alert alert-error shadow-lg mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span>No forecast data available</span>
-        </div>
+        {/* Visual Decoration line */}
+        <div className="w-12 h-1 rounded-full bg-base-content/10 mt-6"></div>
       </div>
     </div>
-  </div>
-);
+  );
+};

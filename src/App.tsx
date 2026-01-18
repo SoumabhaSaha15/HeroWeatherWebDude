@@ -8,7 +8,7 @@ import WeatherCoords from "./components/weather/Coords";
 import { useModal } from "./context/modal/ModalContext";
 import { useCachedCities } from "./hooks/useCachedCities";
 import ForecastCoords from "./components/forecast/Coords";
-import { useState, useRef, type FC, type JSX } from "react";
+import { useState, useRef, type FC, type JSX, useMemo } from "react";
 import useGeolocation from "./context/geolocation/GeolocationContext";
 
 const App: FC = () => {
@@ -29,36 +29,27 @@ const App: FC = () => {
 
   useHotkeys('mod+k', handleOpenSearch, { preventDefault: true });
 
-  const renderContent = (): JSX.Element => {
-    if (city === null && geolocation === null)
-      return (
-        <>
-          <WeatherCity q={"kolkata"} />
-          <div className="divider bg-base-200 m-0" />
-          <ForecastCity q={"kolkata"} />
-        </>
-      );
-    else if (city === null && geolocation !== null)
+  const viewContent = useMemo(() => {
+    if (city === null && geolocation !== null)
       return (
         <>
           <WeatherCoords {...geolocation} />
-          <div className="divider bg-base-300 m-0" />
           <ForecastCoords {...geolocation} />
         </>
       );
-    else return (
+    const targetCity = city ?? "kolkata";
+    return (
       <>
-        <WeatherCity q={city as string} />
-        <div className="divider bg-base-300 m-0" />
-        <ForecastCity q={city as string} />
+        <WeatherCity q={targetCity} />
+        <ForecastCity q={targetCity} />
       </>
     );
-  }
+  }, [city, geolocation]);
 
   return (
     <>
       <div className="min-h-dvh bg-transparent overflow-y-auto">
-        {renderContent()}
+        {viewContent}
         <div className="fab">
           <button
             className="btn btn-circle btn-secondary btn-lg focus:outline-none! focus:ring-0 focus:ring-accent"

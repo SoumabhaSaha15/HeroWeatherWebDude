@@ -1,5 +1,5 @@
-import { prettifyError, ZodError } from "zod";
 import { type FC } from "react";
+import { prettifyError, ZodError } from "zod";
 const ErrorComponent: FC<{ error: unknown }> = ({ error }) => {
   return (
     <div className="flex flex-col justify-center items-center h-full">

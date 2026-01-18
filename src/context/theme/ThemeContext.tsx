@@ -1,5 +1,6 @@
-import { z } from "zod";
+import z from "zod";
 import { createContext, useContext, type Context } from "react";
+
 export const ThemeOptionsValidator = z.enum(["light", "dark", "dawn", "morning", "noon", "evening", "night"]);
 export type ThemeOptionsType = z.infer<typeof ThemeOptionsValidator>;
 export type ThemeContextProps = {

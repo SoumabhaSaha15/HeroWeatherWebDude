@@ -7,14 +7,14 @@ import type { GeolocationType } from "../../context/geolocation/GeolocationConte
 import { useToast } from "../../context/toast/ToastContext";
 
 const ForecastCoords: FC<Exclude<GeolocationType, null>> = (coords) => {
-  const { isLoading, data, error } = useForecastByCoordinates(coords);
+  const { isFetching, data, error } = useForecastByCoordinates(coords);
   const toast = useToast();
   useEffect(() => {
     if (error) toast.open(error.message);
   }, [error]);
   return (
     <>
-      {isLoading ? (<ForecastSkeleton />) : ((data) ? (<Forcast {...data} />) : (<ForecastNotFound />))}
+      {isFetching ? (<ForecastSkeleton />) : ((data) ? (<Forcast {...data} />) : (<ForecastNotFound />))}
     </>
   )
 };

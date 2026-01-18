@@ -1,4 +1,4 @@
-import z from 'zod/v4';
+import z from 'zod';
 
 export const forecastResponseSchema = z.object({
   cod: z.string(),
@@ -21,7 +21,7 @@ export const forecastResponseSchema = z.object({
       id: z.number(),
       main: z.string(),
       description: z.string(),
-      icon: z.string(),
+      icon: z.string().transform(icon => `https://openweathermap.org/img/wn/${icon}@2x.png`),
     })),
     clouds: z.object({
       all: z.number(),
