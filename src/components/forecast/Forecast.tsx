@@ -9,18 +9,18 @@ const Forecast: FC<ForecastResponse> = (forecast) => {
   // Helper to get icon based on weather condition
   const getIcon = (condition: string) => {
     switch (condition.toLowerCase()) {
-      case "rain": return <WiRain className="text-2xl text-info" />;
-      case "clear": return <WiDaySunny className="text-2xl text-warning" />;
-      case "clouds": return <WiCloudy className="text-2xl text-base-content/70" />;
-      case "snow": return <WiSnow className="text-2xl text-info" />;
-      case "thunderstorm": return <WiThunderstorm className="text-2xl text-warning" />;
-      default: return <WiDaySunny className="text-2xl text-base-content" />;
+      case "rain": return <WiRain className="text-3xl text-info" />;
+      case "clear": return <WiDaySunny className="text-3xl text-warning" />;
+      case "clouds": return <WiCloudy className="text-3xl text-base-content/70" />;
+      case "snow": return <WiSnow className="text-3xl text-info" />;
+      case "thunderstorm": return <WiThunderstorm className="text-3xl text-warning" />;
+      default: return <WiDaySunny className="text-3xl text-base-content" />;
     }
   };
 
   return (
     // SPAN 2 ROWS to accommodate the list height naturally in the grid
-    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:row-span-2 m-5">
+    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:row-span-2 m-4">
       <div className="card-body p-5 overflow-hidden">
         {/* Header */}
         <div className="flex justify-between items-center mb-2">

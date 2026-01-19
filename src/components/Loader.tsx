@@ -4,7 +4,7 @@ export const WeatherSkeleton: FC = () => {
   return (
     <>
       {/* 1. Time & Date */}
-      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1">
+      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 m-4">
         <div className="card-body p-6">
           <div className="flex justify-between">
             <div className="skeleton h-6 w-16 rounded-full opacity-50"></div>
@@ -18,7 +18,7 @@ export const WeatherSkeleton: FC = () => {
       </div>
 
       {/* 2. Wind */}
-      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1">
+      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 m-4">
         <div className="card-body items-center p-4">
           <div className="w-full flex justify-between mb-4">
             <div className="skeleton h-4 w-16 rounded-full opacity-50"></div>
@@ -33,7 +33,7 @@ export const WeatherSkeleton: FC = () => {
       </div>
 
       {/* 3. Vis & Pressure (Tall Card) */}
-      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:row-span-2">
+      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:row-span-2  m-4">
         <div className="card-body p-5 flex flex-col justify-between">
           {/* Top half */}
           <div className="space-y-4">
@@ -68,7 +68,7 @@ export const WeatherSkeleton: FC = () => {
       </div>
 
       {/* 4. Temp */}
-      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1">
+      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1  m-4">
         <div className="card-body justify-between p-6">
           <div className="flex justify-between">
             <div className="skeleton h-4 w-24 rounded-full opacity-50"></div>
@@ -86,7 +86,7 @@ export const WeatherSkeleton: FC = () => {
       </div>
 
       {/* 5. Humidity */}
-      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1">
+      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1  m-4">
         <div className="card-body items-center justify-center p-4 relative">
           <div className="absolute top-4 left-4 flex gap-2">
             <div className="skeleton h-6 w-6 rounded-full opacity-50"></div>
@@ -98,7 +98,7 @@ export const WeatherSkeleton: FC = () => {
       </div>
 
       {/* 6. Sun/Moon */}
-      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1">
+      <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1  m-4">
         <div className="card-body p-5 flex flex-col justify-between">
           <div className="flex justify-between mb-2">
             <div className="skeleton h-4 w-20 rounded-full opacity-50"></div>
@@ -118,7 +118,7 @@ export const WeatherSkeleton: FC = () => {
 
 export const ForecastSkeleton: FC = () => {
   return (
-    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:row-span-2">
+    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:row-span-2 m-4">
       <div className="card-body p-5">
         <div className="flex justify-between items-center mb-6">
           <div className="skeleton h-5 w-32 rounded-full opacity-50"></div>

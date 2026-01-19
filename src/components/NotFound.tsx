@@ -4,7 +4,7 @@ import { TbCloudOff, TbSearch } from "react-icons/tb";
 export const WeatherNotFound: FC<{ message?: string }> = ({ message = "City not found" }) => {
   return (
     // Spans 3 columns to fill the main weather area, keeping the layout intact
-    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:col-span-2 xl:col-span-3 min-h-72">
+    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:col-span-2 xl:col-span-3 min-h-72 m-4">
       <div className="card-body items-center justify-center text-center space-y-4">
 
         {/* Animated Icon Container */}
@@ -38,7 +38,7 @@ import { TbCalendarOff } from "react-icons/tb";
 export const ForecastNotFound: FC = () => {
   return (
     // Matches the exact dimensions of the Forecast Card (Tall)
-    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:row-span-2">
+    <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 md:row-span-2 m-4">
       <div className="card-body items-center justify-center text-center p-6">
 
         <div className="w-16 h-16 rounded-2xl bg-base-content/5 flex items-center justify-center mb-4 rotate-3">

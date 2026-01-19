@@ -37,7 +37,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
 
   return (
     // ADDED: Grid Wrapper to force layout & gaps
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2 w-full p-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2 w-full p-3">
 
       {/* 1. TIME & DATE */}
       <div className="card bg-base-200/50 backdrop-blur-md shadow-sm border border-base-content/5 col-span-1 scale-95 hover:scale-100">
@@ -67,7 +67,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
         <div className="card-body items-center relative p-4">
           <div className="w-full flex justify-between items-center mb-1">
             <h2 className="text-xs font-bold opacity-60 uppercase tracking-widest flex gap-2 items-center">
-              <WiStrongWind className="text-lg" /> Wind
+              <WiStrongWind className="text-3xl" /> Wind
             </h2>
           </div>
 
@@ -93,10 +93,10 @@ const Weather: FC<WeatherResponse> = (weather) => {
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center pt-4">
               <span className="text-2xl font-bold text-shadow-2xl">{Math.round(weather.wind.speed)}</span>
-              <span className="text-[10px] opacity-60">KMPH</span>
+              <span className="text-[12px] opacity-60">KMPH</span>
             </div>
           </div>
-          <div className="flex justify-between w-full text-[10px] opacity-50 px-2">
+          <div className="flex justify-between w-full text-[12px] opacity-50 px-2">
             <span>Gust: {weather.wind.gust ?? 0}</span>
             <span>{weather.wind.deg}°</span>
           </div>
@@ -117,7 +117,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
               <div className="text-[12px] opacity-40 mt-1">Max 10km</div>
             </div>
           </div>
-          <div className="divider my-4 opacity-10"></div>
+          <div className="divider divider-accent"></div>
           <div className="flex justify-between items-center mb-2">
             <h2 className="text-xs font-bold opacity-60 uppercase tracking-widest">Pressure</h2>
           </div>
@@ -183,7 +183,7 @@ const Weather: FC<WeatherResponse> = (weather) => {
         <div className="card-body relative overflow-hidden p-5">
           <h2 className="text-xs font-bold opacity-60 uppercase tracking-widest z-10 flex justify-between">
             <span>Sun Cycle</span>
-            <span className="text-[10px] opacity-60 font-mono">{sunProgress < 1 && sunProgress > 0 ? "DAYTIME" : "NIGHT"}</span>
+            <span className="text-[12px] opacity-60 font-mono">{sunProgress < 1 && sunProgress > 0 ? "DAYTIME" : "NIGHT"}</span>
           </h2>
           <div className="flex-1 flex items-center justify-center z-10 mt-4 relative">
             <svg viewBox="0 0 200 100" className="w-full h-24 overflow-visible">
@@ -204,9 +204,9 @@ const Weather: FC<WeatherResponse> = (weather) => {
               </div>
             </div>
           </div>
-          <div className="flex justify-between text-[10px] font-bold opacity-50 mt-auto pt-2 border-t border-base-content/5">
-            <div className="flex items-center gap-1"><WiSunrise className="text-lg" /> {new Date(weather.sys.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-            <div className="flex items-center gap-1"><WiSunset className="text-lg" /> {new Date(weather.sys.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+          <div className="flex justify-between text-[12px] font-bold opacity-50 mt-auto pt-2 border-t border-base-content/5">
+            <div className="flex items-center gap-1"><WiSunrise className="text-2xl" /> {new Date(weather.sys.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+            <div className="flex items-center gap-1"><WiSunset className="text-2xl" /> {new Date(weather.sys.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
           </div>
         </div>
       </div>

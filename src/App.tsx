@@ -8,7 +8,7 @@ import WeatherCoords from "./components/weather/Coords";
 import { useModal } from "./context/modal/ModalContext";
 import { useCachedCities } from "./hooks/useCachedCities";
 import ForecastCoords from "./components/forecast/Coords";
-import { useState, useRef, type FC, type JSX, useMemo } from "react";
+import { useState, useRef, type FC, useMemo } from "react";
 import useGeolocation from "./context/geolocation/GeolocationContext";
 
 const App: FC = () => {
@@ -107,7 +107,7 @@ const App: FC = () => {
                 />
               </label>
             </div>
-            {cachedCities.length ? (<ul tabIndex={-1} className="dropdown-content menu bg-base-300 rounded-box z-1 w-full p-2 mt-1.5 shadow-sm">
+            {cachedCities.length ? (<ul tabIndex={-1} className="dropdown-content menu bg-base-300 rounded-box z-1 w-full p-2 mt-1 shadow-sm">
               {cachedCities.map((item, index) => (
                 <li key={index} onClick={() => {
                   setSearch(item);
